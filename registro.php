@@ -43,7 +43,6 @@
                 <option value="veterinario"> Veterinario </option>
                 <option value="funcionario"> Funcionario </option>
             </select>
-
             <p> Se ja tiver uma conta,<a href="index.php"> clique aqui </a></p>
             <button class="btn btn-lg btn-primary btn-block" type="submit"> Cadastrar-se </button>
         </form>
