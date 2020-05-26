@@ -1,5 +1,5 @@
 <?php
-    include_once ("conexao_bd.php");
+    include_once("conexao_bd.php");
     session_start();
     if(isset($_POST['btn-entrar'])):
         $erros = array();

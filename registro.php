@@ -1,5 +1,6 @@
 <?php
-    include_once ("conexao_bd.php");
+    include_once("conexao_bd.php");
+    include_once("criar_bd.php");
     $nome = $_POST['nome'];
     $cpf = $_POST['cpf'];
     $email = $_POST['email'];
@@ -8,6 +9,12 @@
     $cargo = $_POST['cargo'];
     $sql = "INSERT INTO usuario(nome, cpf, email, senha, cargo) VALUES ('$nome', '$cpf', '$email', '$senha', '$cargo')";
     $salvar = mysqli_query($conexao, $sql);
+    $slq1 = "SELECT * FROM usuario WHERE cpf = '$cpf'";
+    $resultado = mysqli_query($conexao, $sql1);
+    if(mysqli_num_rows($resultado) == 1):
+        echo "Cadastro realizado com sucesso.";
+        header('Location: index.php');
+    endif;
     mysqli_close($conexao);
 ?>
 
