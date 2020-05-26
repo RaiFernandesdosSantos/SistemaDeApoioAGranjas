@@ -5,6 +5,9 @@
         $erros = array();
         $cpf = mysqli_escape_string($conexao, $_POST['cpf']);
         $senha = mysqli_escape_string($conexao, $_POST['senha']);
+        $cargo1 = "gerente";
+        $cargo2 = "veterinario";
+        $cargo3 = "funcionario";
         $sql = "SELECT cpf FROM usuario WHERE cpf = '$cpf'";
         $resultado = mysqli_query($conexao, $sql);
         if(mysqli_num_rows($resultado) > 0):
@@ -13,10 +16,22 @@
             $resultado = mysqli_query($conexao, $sql);
             if(mysqli_num_rows($resultado) == 1):
                 $dados = mysqli_fetch_array($resultado);
-                mysqli_close($conexao);
                 $_SESSION['logado'] = true;
                 $_SESSION['id_usuario'] = $dados['id'];
-                header('Location: pagina_restrita_gerente.php');
+                $sql1 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = '$cargo1'";
+                $resultado1 = mysqli_query($conexao, $sql1);
+                $sql2 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = '$cargo2'";
+                $resultado2 = mysqli_query($conexao, $sql2);
+                $sql3 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = '$cargo3'";
+                $resultado3 = mysqli_query($conexao, $sql3);
+                if(mysqli_num_rows($resultado1) == 1):
+                    header('Location: pagina_restrita_gerente.php');
+                elseif(mysqli_num_rows($resultado2) == 1):
+                    header('Location: pagina_restrita_veterinario.php');
+                elseif(mysqli_num_rows($resultado3) == 1):
+                    header('Location: pagina_restrita_funcionario.php');
+                endif;
+                mysqli_close($conexao);
             else:
                 $erros[] = "<li> Usuário e senha não conferem </li>";
             endif;
