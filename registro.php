@@ -9,13 +9,14 @@
     $cargo = $_POST['cargo'];
     $sql = "INSERT INTO usuario(nome, cpf, email, senha, cargo) VALUES ('$nome', '$cpf', '$email', '$senha', '$cargo')";
     $salvar = mysqli_query($conexao, $sql);
-    $slq1 = "SELECT * FROM usuario WHERE cpf = '$cpf'";
-    $resultado = mysqli_query($conexao, $sql1);
-    if(mysqli_num_rows($resultado) == 1):
-        echo "Cadastro realizado com sucesso.";
+    $pesquisar = "SELECT * FROM usuario WHERE cpf = '$cpf'";
+    $resultado = mysqli_query($conexao, $pesquisar);
+    if(mysqli_num_rows(resultado) == 1):
+        echo "Cadastro concluido com sucesso.";
         header('Location: index.php');
     endif;
     mysqli_close($conexao);
+    unset($conexao);
 ?>
 
 <!DOCTYPE html>
@@ -48,5 +49,6 @@
             <p> Se ja tiver uma conta,<a href="index.php"> clique aqui </a></p>
             <button class="btn btn-lg btn-primary btn-block" type="submit"> Cadastrar-se </button>
         </form>
+        <script> alert(mensagem); </script>
     </body>
 </html>
