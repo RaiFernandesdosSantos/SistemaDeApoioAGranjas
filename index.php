@@ -2,7 +2,6 @@
     include_once("conexao_bd.php");
     session_start();
     if(isset($_POST['btn-entrar'])):
-        $erros = array();
         $cpf = mysqli_escape_string($conexao, $_POST['cpf']);
         $senha = mysqli_escape_string($conexao, $_POST['senha']);
         $cargo1 = "gerente";
@@ -34,10 +33,14 @@
                 mysqli_close($conexao);
                 unset($conexao);
             else:
-                $erros[] = "Usuário e senha não conferem";
+                $erro1 = "<script> var erro1 = 'Usuário e senha não conferem'; </script>";
+                echo $erro1;
+                echo "<script> alert(erro1); </script>";
             endif;
         else:
-            $erros[] = "Usuário inexistente.";
+            $erro2 = "<script> var erro2 = 'Usuário inexistente'; </script>";
+            echo $erro2;
+            echo "<script> alert(erro2); </script>";
         endif;
     endif;
 ?>
@@ -52,16 +55,6 @@
         <link href="css/estilo.css" rel="stylesheet" media="screen">
 	</head>
     <body class="text-center gradiente">
-        <script>
-           var erros = 
-           <?php
-                if(!empty($erros)):
-                    foreach($erros as $erros):
-                        echo $erros;
-                    endforeach;
-                endif;
-            ?>
-        </script>
         <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <h1 class="h3 mb-3 font-weight-normal"> Login </h1>
             <label for="inputCPF" class="sr-only"> CPF </label>

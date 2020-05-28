@@ -9,10 +9,12 @@
     $cargo = $_POST['cargo'];
     $sql = "INSERT INTO usuario(nome, cpf, email, senha, cargo) VALUES ('$nome', '$cpf', '$email', '$senha', '$cargo')";
     $salvar = mysqli_query($conexao, $sql);
-    $pesquisar = "SELECT * FROM usuario WHERE cpf = '$cpf'";
-    $resultado = mysqli_query($conexao, $pesquisar);
-    if(mysqli_num_rows(resultado) == 1):
-        echo "Cadastro concluido com sucesso.";
+    $sql1 = "SELECT cpf FROM usuario WHERE cpf = '$cpf'";
+    $resultado = mysqli_query($conexao, $sql1);
+    if(mysqli_num_rows($resultado) == 1):
+        $cadastro_realizado = "<script> var cadastro = 'Cadastro realizado com sucesso'; </script>";
+        echo $cadastro_realizado;
+        echo "<script> alert(cadastro); </script>";
         header('Location: index.php');
     endif;
     mysqli_close($conexao);
