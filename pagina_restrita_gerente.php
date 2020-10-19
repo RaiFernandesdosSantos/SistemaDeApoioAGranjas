@@ -33,6 +33,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="sistema_financeiro.php"> Sistema financeiro </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cadastro.php"> Cadastro de Funcionarios </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cadastro.php"> Cadastro de Galpões </a>
+                    </li>
                 </ul>
                 <div class="my-2 my-lg-0">
                     <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="logout.php"> Sair </a></p>
