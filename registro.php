@@ -32,7 +32,7 @@
 	</head>
     <body class="text-center gradiente">
         <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <h1 class="h3 mb-3 font-weight-normal"> Cadastre-se </h1>
+            <h1 class="h3 mb-3 font-weight-normal"> Cadastro </h1>
             <label for="nome" class="sr-only"> Nome </label>
             <input type="text" name="n" id="nome" class="form-control" placeholder="Nome" required>
             <label for="cpf" class="sr-only"> CPF </label>
