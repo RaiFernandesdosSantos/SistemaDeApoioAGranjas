@@ -14,7 +14,7 @@
             $cadastro_realizado = "<script> var cadastro = 'Cadastro realizado com sucesso'; </script>";
             echo $cadastro_realizado;
             echo "<script> alert(cadastro); </script>";
-            header('Location: index.php');
+            header('Location: pagina_restrita_gerente.php');
         endif;
         mysqli_close($conexao);
         unset($conexao);
@@ -33,20 +33,12 @@
     <body class="text-center gradiente">
         <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <h1 class="h3 mb-3 font-weight-normal"> Cadastre-se </h1>
-
-
             <label for="nome" class="sr-only"> Nome </label>
             <input type="text" name="n" id="nome" class="form-control" placeholder="Nome" required>
-
-
             <label for="cpf" class="sr-only"> CPF </label>
             <input type="text" name="c" id="cpf" class="form-control" placeholder="CPF" required>
-
-
             <label for="senha" class="sr-only"> Senha </label>
             <input type="password" name="s" id="senha" class="form-control" placeholder="Senha" required>
-
-
             <label for="cargo"> Informe seu cargo: </label>
             <select class="form-control" name="c" id="cargo">
                 <option>  </option>
@@ -54,9 +46,6 @@
                 <option value="veterinario"> Veterinario </option>
                 <option value="funcionario"> Funcionario </option>
             </select>
-
-
-            <p> Se ja tiver uma conta,<a href="index.php"> clique aqui </a></p>
             <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
         </form>
     </body>
