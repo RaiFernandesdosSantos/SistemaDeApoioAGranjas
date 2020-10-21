@@ -37,7 +37,7 @@
                         <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cadastro_galpoes.php"> Cadastro de Galpões </a>
+                        <a class="nav-link" href="cadastro_galpoes.php"> Galpões </a>
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
