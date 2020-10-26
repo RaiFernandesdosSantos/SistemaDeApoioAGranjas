@@ -25,17 +25,17 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="navbar-brand" href="pagina_restrita_gerente.php"> SWMES </a>
+                        <a class="navbar-brand" href="pagina_restrita_funcionario.php"> SWMES </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
+                        <a class="nav-link" href="#"> Sistema de engorda </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="cadastro_galpoes.php"> Galpões </a>
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
-                    <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="logout.php"> Sair </a></p>
+                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="logout.php"> Sair </a></p>
                 </div>
             </div>
         </nav>
@@ -43,13 +43,13 @@
             <div class="sidebar-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" href="pagina_restrita_gerente.php">
+                        <a class="nav-link active" href="pagina_restrita_funcionario.php">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                         Pagina Inicial
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="estoque.php">
+                        <a class="nav-link" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-layers"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                         Estoque
                         </a>

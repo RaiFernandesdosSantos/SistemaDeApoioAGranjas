@@ -21,6 +21,11 @@
             echo $cadastro_realizado;
             echo "<script> alert(cadastro); </script>";
         endif;
+    endif;
+    $existe = "SELECT * FROM galpao";
+    $resul = mysqli_query($conexao, $existe);
+    if(mysqli_num_rows($resultado) == 1):
+        header('Location: cadastro_baias.php');
         mysqli_close($conexao);
         unset($conexao);
     endif;
@@ -75,6 +80,7 @@
                     <option value="terminacao"> Terminação </option>
                     <option value="quarentena"> Quarentena </option>
                 </select>
+                <a href=""> Criar / Deletar uma nova função </a>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
             </form>
         </div>
