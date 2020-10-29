@@ -21,11 +21,6 @@
             echo $cadastro_realizado;
             echo "<script> alert(cadastro); </script>";
         endif;
-    endif;
-    $existe = "SELECT * FROM galpao";
-    $resul = mysqli_query($conexao, $existe);
-    if(mysqli_num_rows($resultado) == 1):
-        header('Location: cadastro_baias.php');
         mysqli_close($conexao);
         unset($conexao);
     endif;
@@ -54,10 +49,10 @@
                         <a class="nav-link" href="sistema_financeiro.php"> Sistema financeiro </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cadastro.php"> Cadastro de Funcionarios </a>
+                        <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cadastro.php"> Cadastro de Galpões </a>
+                        <a class="nav-link" href="cadastro_baias.php"> Galpões </a>
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">

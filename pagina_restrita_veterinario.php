@@ -5,9 +5,15 @@
     $sql = "SELECT * FROM usuario WHERE id = '$id'";
     $resultado = mysqli_query($conexao, $sql);
     $dados = mysqli_fetch_array($resultado);
-    mysqli_close($conexao);
     if(!isset($_SESSION['logado'])):
         header('Loacation: index.php');
+    endif;
+    if(mysqli_num_rows($resultado) == 1):
+        $pagina = "cadastro_baias.php";
+        mysqli_close($conexao);
+        unset($conexao);
+    else:
+        $pagina = "cadastro_galpoes.php";
     endif;
 ?>
 
@@ -31,7 +37,7 @@
                         <a class="nav-link" href="#"> Sistema de engorda </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cadastro_galpoes.php"> Galpões </a>
+                        <a class="nav-link" href="<?php echo $pagina; ?>"> Galpões </a>
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
