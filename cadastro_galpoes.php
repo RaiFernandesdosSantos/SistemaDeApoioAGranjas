@@ -75,7 +75,7 @@
                     <option value="terminacao"> Terminação </option>
                     <option value="quarentena"> Quarentena </option>
                 </select>
-                <a href=""> Criar / Deletar uma nova função </a>
+                <a href="#"> Criar / Deletar uma nova função </a>
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
             </form>
         </div>
