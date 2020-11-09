@@ -36,7 +36,7 @@
                         <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cadastro_galpoes.php"> Galpões </a>
+                        <a class="nav-link" href="cadastro_baias.php"> Galpões </a>
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
@@ -67,8 +67,15 @@
                             <?php 
                                 for($baias = $gp['qtde_baias']; $baias != 0; $baias--)
                                 {
+                                    $nome = "Baia".$baias."_".$gp['id'];
+                                    $id_galpao = $gp['id'];
+                                    $c_b = "INSERT INTO baia(id_galpao, identificacao, qtde_porcos, capacidade_total_porcos, media_peso) VALUES ('$id_galpao', '$nome', 0, 0, 0)";
+                                    $cadas_baias = mysqli_query($conexao, $c_b);
+                                    $sql2 = "SELECT * FROM baia WHERE identificacao = '$nome'";
+                                    $retorno = mysqli_query($conexao, $sql2);
+                                    $dados_baia = mysqli_fetch_array($retorno);
                             ?>
-                            <li class="nav-item"> Baias </li>
+                            <li class="nav-item"> <?php echo $dados_baia['identificacao'] ?> </li>
                             <?php } ?>
                         </ul>
                     </li>
@@ -78,3 +85,7 @@
         </nav>
     </body>
 </html>
+<?php
+    mysqli_close($conexao);
+    unset($conexao);
+?>

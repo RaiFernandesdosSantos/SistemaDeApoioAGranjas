@@ -71,7 +71,7 @@
                 <select class="form-control" name="f" id="funcao">
                     <option>  </option>
                     <option value="maternidade"> Maternidade </option>
-                    <option values="maternidade"> Creche </option>
+                    <option values="creche"> Creche </option>
                     <option value="terminacao"> Terminação </option>
                     <option value="quarentena"> Quarentena </option>
                 </select>
