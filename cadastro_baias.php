@@ -20,61 +20,75 @@
         <link href="css/estilo.css" rel="stylesheet" media="screen">
 	</head>
     <body class="gradiente">
-        <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top"> 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="navbar-brand" href="pagina_restrita_gerente.php"> SWMES </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="sistema_financeiro.php"> Sistema financeiro </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="cadastro_galpoes.php"> Galpões </a>
-                    </li>
-                </ul>
-                <div class="my-2 my-lg-0">
-                    <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="logout.php"> Sair </a></p>
+        <script src="js/jquery-3.5.1.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <div class="container">
+            <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top"> 
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="navbar-brand" href="pagina_restrita_gerente.php"> SWMES </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="sistema_financeiro.php"> Sistema financeiro </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="cadastro_baias.php"> Galpões </a>
+                        </li>
+                    </ul>
+                    <div class="my-2 my-lg-0">
+                        <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="logout.php"> Sair </a></p>
+                    </div>
                 </div>
-            </div>
-        </nav>
-        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-            <div class="sidebar-sticky pt-3">
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Galpões</span>
-                    <a class="d-flex align-items-center text-muted" href="cadastro_galpoes.php" aria-label="Cadastrar Galpão">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
-                    </a>
-                </h6>
-                <ul class="nav flex-column mb-2">
-                <?php 
-                    $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
-                    while($gp = mysqli_fetch_array($galpoes))
-                    {
-                ?>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        <?php echo $gp['identificacao']; ?>
+            </nav>
+            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="sidebar-sticky pt-3">
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Galpões</span>
+                        <a class="d-flex align-items-center text-muted" href="cadastro_galpoes.php" aria-label="Cadastrar Galpão">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                         </a>
-                        <ul class="nav flex-column mb-2">
-                            <?php 
-                                for($baias = $gp['qtde_baias']; $baias != 0; $baias--)
-                                {
-                            ?>
-                            <li class="nav-item"> Baias </li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                <?php } ?>
-                </ul>
+                    </h6>
+                    <?php 
+                            $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
+                            while($gp = mysqli_fetch_array($galpoes))
+                            {
+                    ?>
+                    <select class="form-control" name="g" id="galpao">
+                        <option value="<?php echo $gp['id']; ?>"> <?php echo $gp['identificacao']; ?> </option>
+                        <?php 
+                            for($baias = $gp['qtde_baias']; $baias != 0; $baias--)
+                            {
+                                $nome = "Baia".$baias."_".$gp['id'];
+                                $id_galpao = $gp['id'];
+                                $c_b = "INSERT INTO baia(id_galpao, identificacao, qtde_porcos, capacidade_total_porcos, media_peso) VALUES ('$id_galpao', '$nome', 0, 0, 0)";
+                                $cadas_baias = mysqli_query($conexao, $c_b);
+                                $sql2 = "SELECT * FROM baia WHERE identificacao = '$nome'";
+                                $retorno = mysqli_query($conexao, $sql2);
+                                $dados_baia = mysqli_fetch_array($retorno);
+                        ?>
+                        <option value="<?php echo $dados_baia['id']; ?>"> <?php echo $dados_baia['identificacao'] ?> </option>
+                        <?php } ?>
+                    </select>
+                    <?php } ?>
+                </div>
+            </nav>
+            <div class="col-md-6 col-lg-6">
+                <table>
+                    
+                </table>
             </div>
-        </nav>
+        </div>
     </body>
 </html>
+
+<?php
+    mysqli_close($conexao);
+    unset($conexao);
+?>
