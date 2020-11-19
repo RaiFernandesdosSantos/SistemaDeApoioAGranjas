@@ -53,7 +53,7 @@
                             <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cadastro_baias.php"> Galpões </a>
+                            <a class="nav-link" href="lista_baia_galpao.php"> Galpões </a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
@@ -77,7 +77,7 @@
                         <option value="quarentena"> Quarentena </option>
                     </select>
                     <a href="#"> Criar / Deletar uma nova função </a>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
+                    <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
                 </form>
             </div>
         </div>

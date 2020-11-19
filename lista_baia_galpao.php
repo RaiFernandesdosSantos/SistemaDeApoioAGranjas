@@ -8,6 +8,8 @@
     if(!isset($_SESSION['logado'])):
         header('Loacation: index.php');
     endif;
+    unset($_SESSION['dg']);
+    unset($_SESSION['db']);
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +41,7 @@
                             <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cadastro_baias.php"> Galpões </a>
+                            <a class="nav-link" href="lista_baia_galpao.php"> Galpões </a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
@@ -47,21 +49,23 @@
                     </div>
                 </div>
             </nav>
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="sidebar-sticky pt-3">
-                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <div class=" offset-md-2 offset-lg-2 col-md-8 col-lg-8 bg-light">
+                <form class="form-signin" method="POST" action="selecione_galpao.php">
+                    <h6 class=" text-muted">
                         <span>Galpões</span>
-                        <a class="d-flex align-items-center text-muted" href="cadastro_galpoes.php" aria-label="Cadastrar Galpão">
+                        <a class=" text-muted" href="cadastro_galpoes.php" aria-label="Cadastrar Galpão">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                         </a>
                     </h6>
                     <?php 
-                            $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
-                            while($gp = mysqli_fetch_array($galpoes))
-                            {
+                        $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
+                        while($gp = mysqli_fetch_array($galpoes))
+                        {
                     ?>
-                    <select class="form-control" name="g" id="galpao">
-                        <option value="<?php echo $gp['id']; ?>"> <?php echo $gp['identificacao']; ?> </option>
+                    <label for="galpao"> <?php echo $gp['identificacao']; ?> </label>
+                    <select class="form-control" name="g<?php echo $gp['id']?>" id="galpao">
+                        <option values=""> Selecione </option>
+                        <option value="<?php echo $gp['identificacao']; ?>"> <?php echo $gp['identificacao']; ?> </option>
                         <?php 
                             for($baias = $gp['qtde_baias']; $baias != 0; $baias--)
                             {
@@ -73,16 +77,12 @@
                                 $retorno = mysqli_query($conexao, $sql2);
                                 $dados_baia = mysqli_fetch_array($retorno);
                         ?>
-                        <option value="<?php echo $dados_baia['id']; ?>"> <?php echo $dados_baia['identificacao'] ?> </option>
+                        <option value="<?php echo $dados_baia['identificacao']; ?>"> <?php echo $dados_baia['identificacao'] ?> </option>
                         <?php } ?>
                     </select>
                     <?php } ?>
-                </div>
-            </nav>
-            <div class="col-md-6 col-lg-6">
-                <table>
-                    
-                </table>
+                    <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-dados"> Ver Dados </button>
+                </form>
             </div>
         </div>
     </body>

@@ -8,8 +8,10 @@
     if(!isset($_SESSION['logado'])):
         header('Loacation: index.php');
     endif;
+    $existe = "SELECT * FROM galpao";
+    $resul = mysqli_query($conexao, $existe);
     if(mysqli_num_rows($resultado) == 1):
-        $pagina = "cadastro_baias.php";
+        $pagina = "lista_baia_galpao.php";
         mysqli_close($conexao);
         unset($conexao);
     else:

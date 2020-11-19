@@ -24,7 +24,7 @@
     if(mysqli_num_rows($resultado2) == 1):
         mysqli_close($conexao);
         else:
-            $criar2 = "CREATE TABLE baia(id int NOT NULL AUTO_INCREMENT, id_galpao int NOT NULL, identificacao VARCHAR(255) NOT NULL, qtde_porcos int, capacidade_total_porcos int NOT NULL, media_peso double, PRIMARY KEY('id'))";
+            $criar2 = "CREATE TABLE baia(id int NOT NULL AUTO_INCREMENT, id_galpao int NOT NULL, identificacao VARCHAR(255) NOT NULL, qtde_porcos int, capacidade_total_porcos int NOT NULL, media_peso double, PRIMARY KEY('id'), UNIQUE KEY('identificacao'))";
             $criar_tabela2 = mysqli_query($conexao, $sql1);
     endif;
 ?>

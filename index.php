@@ -62,7 +62,7 @@
             <label for="inputPassword" class="sr-only"> Senha </label>
 			<input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="senha" required>
             <a href="#"> Esqueceu a senha? </a>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn-entrar"> Login </button>
+            <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-entrar"> Login </button>
         </form>
     </body>
 </html>

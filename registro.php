@@ -39,14 +39,14 @@
             <input type="text" name="c" id="cpf" class="form-control" placeholder="CPF" required>
             <label for="senha" class="sr-only"> Senha </label>
             <input type="password" name="s" id="senha" class="form-control" placeholder="Senha" required>
-            <label for="cargo"> Informe seu cargo: </label>
+            <label for="cargo"> Informe o cargo: </label>
             <select class="form-control" name="c" id="cargo">
                 <option>  </option>
                 <option value="gerente"> Gerente </option>
                 <option value="veterinario"> Veterinario </option>
                 <option value="funcionario"> Funcionario </option>
             </select>
-            <button class="btn btn-lg btn-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
+            <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar </button>
         </form>
     </body>
 </html>
