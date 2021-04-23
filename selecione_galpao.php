@@ -11,12 +11,10 @@
         if(isset($_POST['btn-dados'])):
             $nome = "g".$gp['id'];
             $opcao = mysqli_escape_string($conexao, $_POST[$nome]);
-            echo $nome;
-            echo $opcao;
-            $sql3 = "SELECT * FROM galpao WHERE identificacao = '$opcao'";
-            $r1 = mysqli_query($conexao, $sql3);
-            $sql4 = "SELECT * FROM baia WHERE identificacao = '$opcao'";
-            $r2 = mysqli_query($conexao, $sql4);
+            $sql = "SELECT * FROM galpao WHERE identificacao = '$opcao'";
+            $r1 = mysqli_query($conexao, $sql);
+            $sql = "SELECT * FROM baia WHERE identificacao = '$opcao'";
+            $r2 = mysqli_query($conexao, $sql);
             if(mysqli_num_rows($r1) == 1):
                 $_SESSION['dg'] = $opcao;
                 header('Location: dados_galpao.php');

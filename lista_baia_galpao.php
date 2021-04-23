@@ -35,9 +35,6 @@
                             <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="sistema_financeiro.php"> Sistema financeiro </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
@@ -56,7 +53,6 @@
                         <a class=" text-muted" href="cadastro_galpoes.php" aria-label="Cadastrar Galpão">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                         </a>
-<<<<<<< HEAD
                     </h6>
                     <?php 
                         $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
@@ -66,61 +62,39 @@
                     <label for="galpao"> <?php echo $gp['identificacao']; ?> </label>
                     <select class="form-control" name="g<?php echo $gp['id']?>" id="galpao">
                         <option values=""> Selecione </option>
-                        <option value="<?php echo $gp['identificacao']; ?>"> <?php echo $gp['identificacao']; ?> </option>
+                        <option value="<?php echo $gp['id']; ?>"> <?php echo $gp['identificacao']; ?> </option>
                         <?php 
                             for($baias = $gp['qtde_baias']; $baias != 0; $baias--)
                             {
                                 $nome = "Baia".$baias."_".$gp['id'];
                                 $id_galpao = $gp['id'];
-                                $c_b = "INSERT INTO baia(id_galpao, identificacao, qtde_porcos, capacidade_total_porcos, media_peso) VALUES ('$id_galpao', '$nome', 0, 0, 0)";
+                                $c_b = "INSERT INTO baia(id_galpao, identificacao, capacidade_total_porcos) VALUES ('$id_galpao', '$nome', 0)";
                                 $cadas_baias = mysqli_query($conexao, $c_b);
                                 $sql2 = "SELECT * FROM baia WHERE identificacao = '$nome'";
                                 $retorno = mysqli_query($conexao, $sql2);
                                 $dados_baia = mysqli_fetch_array($retorno);
+                                $id_baia = $dados_baia['id'];
+                                $conferir = "SELECT * FROM historico_baia WHERE id_baia = '$id_baia'";
+                                $r1 = mysqli_query($conexao, $conferir);
                         ?>
-                        <option value="<?php echo $dados_baia['identificacao']; ?>"> <?php echo $dados_baia['identificacao'] ?> </option>
-                        <?php } ?>
+                        <option value="<?php echo $dados_baia['id']; ?>"> <?php echo $dados_baia['identificacao'] ?> </option>
+                        <?php 
+                                if(mysqli_num_rows($r1) != 0):
+                                    continue;
+                                else:
+                                    $hb = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$id_baia', '$id', now(), 0, 0)";
+                                    $historico = mysqli_query($conexao, $hb);   
+                                endif;
+                            } ?>
                     </select>
                     <?php } ?>
-<<<<<<< HEAD:lista_baia_galpao.php
                     <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-dados"> Ver Dados </button>
                 </form>
-=======
-                </div>
-            </nav>
-            <div class="col-md-6 col-lg-6">
-                <table>
-                    
-                </table>
-=======
-                        <ul class="nav flex-column mb-2">
-                            <?php 
-                                for($baias = $gp['qtde_baias']; $baias != 0; $baias--)
-                                {
-                                    $nome = "Baia".$baias."_".$gp['id'];
-                                    $id_galpao = $gp['id'];
-                                    $c_b = "INSERT INTO baia(id_galpao, identificacao, qtde_porcos, capacidade_total_porcos, media_peso) VALUES ('$id_galpao', '$nome', 0, 0, 0)";
-                                    $cadas_baias = mysqli_query($conexao, $c_b);
-                                    $sql2 = "SELECT * FROM baia WHERE identificacao = '$nome'";
-                                    $retorno = mysqli_query($conexao, $sql2);
-                                    $dados_baia = mysqli_fetch_array($retorno);
-                            ?>
-                            <li class="nav-item"> <?php echo $dados_baia['identificacao'] ?> </li>
-                            <?php } ?>
-                        </ul>
-                    </li>
-                <?php } ?>
-                </ul>
->>>>>>> b9ad6338094ccbb2e0e4171265bd4014934c9c2e
->>>>>>> f9ddf23eb0be7ba00af8840356b3a1a360ead69e:cadastro_baias.php
             </div>
         </div>
     </body>
 </html>
-<<<<<<< HEAD
 
-=======
->>>>>>> b9ad6338094ccbb2e0e4171265bd4014934c9c2e
 <?php
     mysqli_close($conexao);
     unset($conexao);

@@ -6,30 +6,39 @@
     $sql = "SELECT * FROM usuario WHERE id = '$id'";
     $resultado = mysqli_query($conexao, $sql);
     $dados = mysqli_fetch_array($resultado);
+    $id = $dados['id'];
     if(!isset($_SESSION['logado'])):
         header('Loacation: index.php');
     endif;
     $sql = "SELECT * FROM baia WHERE identificacao = '$nome'";
     $r1 = mysqli_query($conexao, $sql);
     $db = mysqli_fetch_array($r1);
+    $id_baia = $db['id'];
     $id_galpao = $db['id_galpao'];
     $sql = "SELECT * FROM galpao WHERE id = '$id_galpao'";
     $r2 = mysqli_query($conexao, $sql);
     $dg = mysqli_fetch_array($r2);
+    $sql = "SELECT * FROM historico_baia WHERE id_baia = '$id_baia' AND data_hora = (SELECT max(data_hora) FROM historico_baia WHERE id_baia = '$id_baia')";
+    $r3 = mysqli_query($conexao, $sql);
+    $hb = mysqli_fetch_array($r3);
     $menos_baia = $dg['qtde_baias'] - 1;
-    $menos_porcos = $dg['total_porcos'] - $db['qtde_porcos'];
+    $menos_porcos = $dg['total_porcos'] - $hb['qtde_porcos'];
     if(isset($_POST['btn-submit'])):
         $identificacao = mysqli_escape_string($conexao, $_POST['i']);
         $qtde_porcos = mysqli_escape_string($conexao, $_POST['qp']);
         $capacidade = mysqli_escape_string($conexao, $_POST['ctp']);
         $media_peso = mysqli_escape_string($conexao, $_POST['mp']);
-        $sql = "UPDATE baia SET identificacao = '$identificacao', qtde_porcos = '$qtde_porcos', capacidade_total_porcos = '$capacidade', media_peso = '$media_peso' WHERE identificacao = '$nome'";
+        $sql = "UPDATE baia SET identificacao = '$identificacao', capacidade_total_porcos = '$capacidade' WHERE identificacao = '$nome'";
         $salvar = mysqli_query($conexao, $sql);
-        $mais_porcos = $dg['total_porcos'] + $db['qtde_porcos'];
+        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$id_baia', '$id', now(), '$qtde_porcos', '$media_peso')";
+        $salvar = mysqli_query($conexao, $sql);
+        $mais_porcos = $dg['total_porcos'] + $hb['qtde_porcos'];
         $sql = "UPDATE galpao SET total_porcos = '$mais_porcos' WHERE id = '$id_galpao'";
         $salvar = mysqli_query($conexao, $sql);
     elseif(isset($_POST['btn-delet'])):
         $deletar = "DELETE FROM baia WHERE identificacao = '$nome'";
+        $salvar = mysqli_query($conexao, $deletar);
+        $deletar = "DELETE FROM historico_baia WHERE id = '$id_baia'";
         $salvar = mysqli_query($conexao, $deletar);
         $atualiza = "UPDATE galpao SET qtde_baias = '$menos_baia', total_porcos = '$menos_porcos' WHERE id = '$id_galpao'";
         $salvar = mysqli_query($conexao, $atualiza);
@@ -60,9 +69,6 @@
                             <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="sistema_financeiro.php"> Sistema financeiro </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
@@ -80,13 +86,14 @@
                     <label for="iden"> Identificação: </label>
                     <input type="text" name="i" id="iden" class="form-control" value="<?php echo $db['identificacao']; ?>">
                     <label for="baias"> Quantidade de Porcos: </label>
-                    <input type="text" name="qp" id="porcos" class="form-control" value="<?php echo $db['qtde_porcos']; ?>">
+                    <input type="text" name="qp" id="porcos" class="form-control" value="<?php echo $hb['qtde_porcos']; ?>">
                     <label for="baias"> Capacidade Total de Porcos: </label>
                     <input type="text" name="ctp" id="baias" class="form-control" value="<?php echo $db['capacidade_total_porcos']; ?>">
                     <label for="baias"> Media de Peso da Baia: </label>
-                    <input type="text" name="mp" id="baias" class="form-control" value="<?php echo $db['media_peso']; ?>">
+                    <input type="text" name="mp" id="baias" class="form-control" value="<?php echo $hb['media_peso']; ?>">
                     <button class="btn btn-outline-success" type="submit" name="btn-submit"> Mudar Dados da Baia </button>
                     <button class="btn btn-outline-danger" type="submit" name="btn-delet"> Deletar Baia </button>
+                    <a href="movimentar.php" class="btn btn-outline-primary"> Movimentar animais </a>
                 </form>
             </div>
         </div>

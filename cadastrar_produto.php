@@ -9,18 +9,11 @@
         header('Location: index.php');
     endif;
     if(isset($_POST['btn-submit'])):
-        $identificacao = mysqli_escape_string($conexao, $_POST['i']);
-        $baias = mysqli_escape_string($conexao, $_POST['qb']);
-        $funcao = mysqli_escape_string($conexao, $_POST['f']);
-        $sql = "INSERT INTO galpao(identificacao, qtde_baias, funcao, total_porcos) VALUES ('$identificacao', '$baias', '$funcao', 0)";
+        $nome = mysqli_escape_string($conexao, $_POST['nome']);
+        $fabricante = mysqli_escape_string($conexao, $_POST['fabricante']);
+        $unidade = mysqli_escape_string($conexao, $_POST['unidade']);
+        $sql = "INSERT INTO item(nome, fabricante, unidade, qtde) VALUES ('$nome', '$fabricante', '$unidade', 0)";
         $salvar = mysqli_query($conexao, $sql);
-        $conferir = "SELECT identificacao FROM galpao WHERE identificacao = '$identificacao'";
-        $resultado = mysqli_query($conexao, $conferir);
-        if(mysqli_num_rows($resultado) == 1):
-            $cadastro_realizado = "<script> var cadastro = 'Cadastro realizado com sucesso'; </script>";
-            echo $cadastro_realizado;
-            echo "<script> alert(cadastro); </script>";
-        endif;
         mysqli_close($conexao);
         unset($conexao);
     endif;
@@ -60,18 +53,18 @@
             </nav>
             <div class=" offset-md-2 offset-lg-2 col-md-8 col-lg-8 bg-light">
                 <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                    <h1 class="h3 mb-3 font-weight-normal"> Cadastro de Galpões </h1>
-                    <label for="identificacao" class="sr-only"> Identificação </label>
-                    <input type="text" name="i" id="identificacao" class="form-control" placeholder="Identificação" required>
-                    <label for="baias" class="sr-only"> Quantidade de Baias </label>
-                    <input type="text" name="qb" id="baias" class="form-control" placeholder="Quantidade de Baias" required>
-                    <label for="funcao"> Informe a função desse galpão: </label>
-                    <select class="form-control" name="f" id="funcao">
+                    <h1 class="h3 mb-3 font-weight-normal"> Cadastro de Produtos </h1>
+                    <label for="n" class="sr-only"> Nome </label>
+                    <input type="text" name="nome" id="n" class="form-control" placeholder="Nome" required>
+                    <label for="f" class="sr-only"> Fabricante </label>
+                    <input type="text" name="fabricante" id="f" class="form-control" placeholder="Fabricante" required>
+                    <label for="u"> Informe a unidade do produto: </label>
+                    <select class="form-control" name="unidade" id="u">
                         <option value=""> Selecione </option>
-                        <option value="Maternidade"> Maternidade </option>
-                        <option value="Creche"> Creche </option>
-                        <option value="Terminacao"> Terminação </option>
-                        <option value="Quarentena"> Quarentena </option>
+                        <option value="Kg"> Quilogramas </option>
+                        <option value="Ml"> Mililitros </option>
+                        <option value="G"> Gramas </option>
+                        <option value="L"> Litros </option>
                     </select>
                     <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
                 </form>
