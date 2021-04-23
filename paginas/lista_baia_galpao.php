@@ -1,15 +1,8 @@
 <?php
-    include_once("conexao_bd.php");
-    session_start();
-    $id = $_SESSION['id_usuario'];
-    $sql = "SELECT * FROM usuario WHERE id = '$id'";
-    $resultado = mysqli_query($conexao, $sql);
-    $dados = mysqli_fetch_array($resultado);
-    if(!isset($_SESSION['logado'])):
-        header('Loacation: index.php');
-    endif;
+    include '../controladores/autenticacao_usuario.php';
     unset($_SESSION['dg']);
     unset($_SESSION['db']);
+    require_once '../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -38,16 +31,16 @@
                             <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="lista_baia_galpao.php"> Galpões </a>
+                            <a class="nav-link" href="<?php echo $pagina; ?>"> Galpões </a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
-                        <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="logout.php"> Sair </a></p>
+                        <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="../controladores/logout.php"> Sair </a></p>
                     </div>
                 </div>
             </nav>
             <div class=" offset-md-2 offset-lg-2 col-md-8 col-lg-8 bg-light">
-                <form class="form-signin" method="POST" action="selecione_galpao.php">
+                <form class="form-signin" method="POST" action="../controladores/selecione_galpao.php">
                     <h6 class=" text-muted">
                         <span>Galpões</span>
                         <a class=" text-muted" href="cadastro_galpoes.php" aria-label="Cadastrar Galpão">

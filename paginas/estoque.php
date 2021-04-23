@@ -1,14 +1,7 @@
 <?php
-    include_once("conexao_bd.php");
-    session_start();
-    $id = $_SESSION['id_usuario'];
-    $sql = "SELECT * FROM usuario WHERE id = '$id'";
-    $resultado = mysqli_query($conexao, $sql);
-    $dados = mysqli_fetch_array($resultado);
-    if(!isset($_SESSION['logado'])):
-        header('Location: index.php');
-    endif;
-    unset($_SESSION['item']);
+    include '../controladores/autenticacao_usuario.php';
+    unset($_SESSION['idp']);
+    require_once '../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +31,7 @@
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
-                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="logout.php"> Sair </a></p>
+                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="../controladores/logout.php"> Sair </a></p>
                 </div>
             </div>
         </nav>
@@ -65,8 +58,9 @@
                         <td><?php echo $it['nome']; ?></td>
                         <td><?php echo $it['fabricante']; ?></td>
                         <td><?php echo $it['qtde']; ?></td>
-                        <td><a href="retirada.php?id=<?php echo $it['id']; ?>" class="btn btn-outline-danger"> Retirada </a></td>
+                        <td><a href="retirada.php" class="btn btn-outline-danger"> Retirada </a></td>
                     </tr>
+                    <?php $_SESSION['idp'] = $it['id']; ?>
                     <?php } ?>
                 </tbody>
             </table>
@@ -75,3 +69,8 @@
         </div>
     </body>
 </html>
+
+<?php
+    mysqli_close($conexao);
+    unset($conexao);
+?>

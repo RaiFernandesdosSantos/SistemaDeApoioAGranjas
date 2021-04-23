@@ -1,22 +1,6 @@
 <?php
-    include_once("conexao_bd.php");
-    session_start();
-    $id = $_SESSION['id_usuario'];
-    $sql = "SELECT * FROM usuario WHERE id = '$id'";
-    $resultado = mysqli_query($conexao, $sql);
-    $dados = mysqli_fetch_array($resultado);
-    if(!isset($_SESSION['logado'])):
-        header('Loacation: index.php');
-    endif;
-    $existe = "SELECT * FROM galpao";
-    $resul = mysqli_query($conexao, $existe);
-    if(mysqli_num_rows($resultado) == 1):
-        $pagina = "lista_baia_galpao.php";
-        mysqli_close($conexao);
-        unset($conexao);
-    else:
-        $pagina = "cadastro_galpoes.php";
-    endif;
+    include '../controladores/autenticacao_usuario.php';
+    require_once '../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +30,7 @@
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
-                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="logout.php"> Sair </a></p>
+                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="../controladores/logout.php"> Sair </a></p>
                 </div>
             </div>
         </nav>
@@ -108,3 +92,8 @@
         </nav>
     </body>
 </html>
+
+<?php
+    mysqli_close($conexao);
+    unset($conexao);
+?>

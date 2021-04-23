@@ -3,7 +3,7 @@
     session_start();
     $id = $_SESSION['id_usuario'];
     if(!isset($_SESSION['logado'])):
-        header('Loacation: index.php');
+        header('Loacation: ../index.php');
     endif;
     $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
     while($gp = mysqli_fetch_array($galpoes))
@@ -17,14 +17,14 @@
             $r2 = mysqli_query($conexao, $sql);
             if(mysqli_num_rows($r1) == 1):
                 $_SESSION['dg'] = $opcao;
-                header('Location: dados_galpao.php');
+                header('Location: ../paginas/dados_galpao.php');
                 break;
             elseif(mysqli_num_rows($r2) == 1):
                 $_SESSION['db'] = $opcao;
-                header('Location: dados_baia.php');
+                header('Location: ../paginas/dados_baia.php');
                 break;
             else:
-                header('Location: lista_baia_galpao.php');
+                header('Location: ../paginas/lista_baia_galpao.php');
             endif;
         endif;
     }

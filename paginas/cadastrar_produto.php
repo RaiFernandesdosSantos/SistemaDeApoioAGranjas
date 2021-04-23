@@ -1,22 +1,13 @@
 <?php
-    include_once("conexao_bd.php");
-    session_start();
-    $id = $_SESSION['id_usuario'];
-    $sql = "SELECT * FROM usuario WHERE id = '$id'";
-    $resultado = mysqli_query($conexao, $sql);
-    $dados = mysqli_fetch_array($resultado);
-    if(!isset($_SESSION['logado'])):
-        header('Location: index.php');
-    endif;
+    include '../controladores/autenticacao_usuario.php';
     if(isset($_POST['btn-submit'])):
         $nome = mysqli_escape_string($conexao, $_POST['nome']);
         $fabricante = mysqli_escape_string($conexao, $_POST['fabricante']);
         $unidade = mysqli_escape_string($conexao, $_POST['unidade']);
         $sql = "INSERT INTO item(nome, fabricante, unidade, qtde) VALUES ('$nome', '$fabricante', '$unidade', 0)";
         $salvar = mysqli_query($conexao, $sql);
-        mysqli_close($conexao);
-        unset($conexao);
     endif;
+    require_once '../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -43,11 +34,11 @@
                             <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="lista_baia_galpao.php"> Galpões </a>
+                            <a class="nav-link" href="<?php echo $pagina; ?>"> Galpões </a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
-                        <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="logout.php"> Sair </a></p>
+                        <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="../controladores/logout.php"> Sair </a></p>
                     </div>
                 </div>
             </nav>
@@ -72,3 +63,8 @@
         </div>
     </body>
 </html>
+
+<?php
+    mysqli_close($conexao);
+    unset($conexao);
+?>
