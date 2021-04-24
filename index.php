@@ -1,5 +1,5 @@
 <?php
-    include_once("conexao_bd.php");
+    include_once("controladores/conexao_bd.php");
     session_start();
     if(isset($_POST['btn-entrar'])):
         $cpf = mysqli_escape_string($conexao, $_POST['cpf']);
@@ -24,11 +24,11 @@
                 $sql3 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = '$cargo3'";
                 $resultado3 = mysqli_query($conexao, $sql3);
                 if(mysqli_num_rows($resultado1) == 1):
-                    header('Location: paginas/pagina_restrita_gerente.php');
+                    header('Location: paginas/geral/pagina_restrita_gerente.php');
                 elseif(mysqli_num_rows($resultado2) == 1):
-                    header('Location: paginas/pagina_restrita_veterinario.php');
+                    header('Location: paginas/geral/pagina_restrita_veterinario.php');
                 elseif(mysqli_num_rows($resultado3) == 1):
-                    header('Location: paginas/pagina_restrita_funcionario.php');
+                    header('Location: paginas/geral/pagina_restrita_funcionario.php');
                 endif;
                 mysqli_close($conexao);
                 unset($conexao);

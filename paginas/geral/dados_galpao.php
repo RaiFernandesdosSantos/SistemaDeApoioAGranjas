@@ -1,5 +1,5 @@
 <?php
-    include '../controladores/autenticacao_usuario.php';
+    include '../../controladores/autenticacao_usuario.php';
     $sql2 = "SELECT * FROM galpao WHERE identificacao = '$nome'";
     $r1 = mysqli_query($conexao, $sql2);
     $dg = mysqli_fetch_array($r1);
@@ -19,7 +19,7 @@
         $salvar = mysqli_query($conexao, $deletar_baia);
         header('Location: lista_baia_galpao.php');
     endif;
-    require_once '../controladores/verificar_galpao.php';
+    require_once '../../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -28,8 +28,8 @@
 		<meta charset = "UTF-8">
 		<title> Pagina inicial </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/estilo.css" rel="stylesheet" media="screen">
+        <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../../css/estilo.css" rel="stylesheet" media="screen">
 	</head>
     <body class="gradiente">
         <div class="container">
@@ -40,17 +40,17 @@
                             <a class="navbar-brand" href="pagina_restrita_gerente.php"> SWMES </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
+                            <a class="nav-link" href="#"> Sistema de engorda </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
+                            <a class="nav-link" href="../cadastros/registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo $pagina; ?>"> Galpões </a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
-                        <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="../controladores/logout.php"> Sair </a></p>
+                        <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="../../controladores/logout.php"> Sair </a></p>
                     </div>
                 </div>
             </nav>
@@ -85,7 +85,7 @@
                     </table>
                     <button class="btn btn-outline-success btn-sm" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
                     <button class="btn btn-outline-danger btn-sm" type="submit" name="btn-delet"> Deletar Galpão </button>
-                    <a href="movimentar.php" class="btn btn-outline-primary"> Movimentar animais </a>
+                    <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary"> Movimentar animais </a>
                 </form>
             </div>
         </div>

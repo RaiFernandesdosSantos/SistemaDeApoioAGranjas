@@ -1,8 +1,8 @@
 <?php
-    include '../controladores/autenticacao_usuario.php';
+    include '../../controladores/autenticacao_usuario.php';
     unset($_SESSION['dg']);
     unset($_SESSION['db']);
-    require_once '../controladores/verificar_galpao.php';
+    require_once '../../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,8 +11,8 @@
 		<meta charset = "UTF-8">
 		<title> Pagina inicial </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/estilo.css" rel="stylesheet" media="screen">
+        <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../../css/estilo.css" rel="stylesheet" media="screen">
 	</head>
     <body class="gradiente">
         <script src="js/jquery-3.5.1.js"></script>
@@ -25,25 +25,25 @@
                             <a class="navbar-brand" href="pagina_restrita_gerente.php"> SWMES </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
+                            <a class="nav-link" href="#"> Sistema de engorda </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
+                            <a class="nav-link" href="../cadastros/registro.php"> Cadastro de Funcionarios </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo $pagina; ?>"> Galpões </a>
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
-                        <p> Olá <a href="perfil.php"> <?php echo $dados['nome']; ?></a>, <a href="../controladores/logout.php"> Sair </a></p>
+                        <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="../../controladores/logout.php"> Sair </a></p>
                     </div>
                 </div>
             </nav>
             <div class=" offset-md-2 offset-lg-2 col-md-8 col-lg-8 bg-light">
-                <form class="form-signin" method="POST" action="../controladores/selecione_galpao.php">
+                <form class="form-signin" method="POST" action="../../controladores/selecione_galpao.php">
                     <h6 class=" text-muted">
                         <span>Galpões</span>
-                        <a class=" text-muted" href="cadastro_galpoes.php" aria-label="Cadastrar Galpão">
+                        <a class=" text-muted" href="../cadastros/cadastro_galpoes.php" aria-label="Cadastrar Galpão">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg>
                         </a>
                     </h6>

@@ -1,5 +1,5 @@
 <?php
-    include '../controladores/autenticacao_usuario.php';
+    include '../../controladores/autenticacao_usuario.php';
     if(isset($_POST['btn-submit'])):
         $nome = mysqli_escape_string($conexao, $_POST['nome']);
         $fabricante = mysqli_escape_string($conexao, $_POST['fabricante']);
@@ -7,7 +7,7 @@
         $sql = "INSERT INTO item(nome, fabricante, unidade, qtde) VALUES ('$nome', '$fabricante', '$unidade', 0)";
         $salvar = mysqli_query($conexao, $sql);
     endif;
-    require_once '../controladores/verificar_galpao.php';
+    require_once '../../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +16,8 @@
 		<meta charset = "UTF-8">
 		<title> Pagina inicial </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/estilo.css" rel="stylesheet" media="screen">
+        <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../../css/estilo.css" rel="stylesheet" media="screen">
 	</head>
     <body class="gradiente">
         <div class="container">
@@ -25,10 +25,10 @@
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="navbar-brand" href="pagina_restrita_gerente.php"> SWMES </a>
+                            <a class="navbar-brand" href="../geral/pagina_restrita_gerente.php"> SWMES </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="sistema_engorda.php"> Sistema de engorda </a>
+                            <a class="nav-link" href="#"> Sistema de engorda </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
@@ -38,7 +38,7 @@
                         </li>
                     </ul>
                     <div class="my-2 my-lg-0">
-                        <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="../controladores/logout.php"> Sair </a></p>
+                        <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="../../controladores/logout.php"> Sair </a></p>
                     </div>
                 </div>
             </nav>

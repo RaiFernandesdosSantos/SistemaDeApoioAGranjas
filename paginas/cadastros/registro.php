@@ -1,5 +1,5 @@
 <?php
-    include '../controladores/autenticacao_usuario.php';
+    include '../../controladores/autenticacao_usuario.php';
     if(isset($_POST['btn-submit'])):
         $nome = mysqli_escape_string($conexao, $_POST['n']);
         $cpf = mysqli_escape_string($conexao, $_POST['c']);
@@ -14,10 +14,10 @@
             $cadastro_realizado = "<script> var cadastro = 'Cadastro realizado com sucesso'; </script>";
             echo $cadastro_realizado;
             echo "<script> alert(cadastro); </script>";
-            header('Location: pagina_restrita_gerente.php');
+            header('Location: ../geral/pagina_restrita_gerente.php');
         endif;
     endif;
-    require_once '../controladores/verificar_galpao.php';
+    require_once '../../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -26,15 +26,15 @@
 		<meta charset = "UTF-8">
 		<title> Cadastro </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/estilo.css" rel="stylesheet" media="screen">
+        <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../../css/estilo.css" rel="stylesheet" media="screen">
 	</head>
     <body class="text-center gradiente">
         <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top"> 
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="navbar-brand" href="pagina_restrita_gerente.php"> SWMES </a>
+                        <a class="navbar-brand" href="../geral/pagina_restrita_gerente.php"> SWMES </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"> Sistema de engorda </a>
@@ -47,7 +47,7 @@
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
-                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="../controladores/logout.php"> Sair </a></p>
+                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="../../controladores/logout.php"> Sair </a></p>
                 </div>
             </div>
         </nav>

@@ -1,6 +1,6 @@
 <?php
-    include '../controladores/autenticacao_usuario.php';
-    require_once '../controladores/verificar_galpao.php';
+    include '../../controladores/autenticacao_usuario.php';
+    require_once '../../controladores/verificar_galpao.php';
 ?>
 
 <!DOCTYPE html>
@@ -9,8 +9,8 @@
 		<meta charset = "UTF-8">
 		<title> Pagina inicial </title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/estilo.css" rel="stylesheet" media="screen">
+        <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="../../css/estilo.css" rel="stylesheet" media="screen">
 	</head>
     <body class="gradiente">
         <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top"> 
@@ -27,7 +27,7 @@
                     </li>
                 </ul>
                 <div class="my-2 my-lg-0">
-                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="../controladores/logout.php"> Sair </a></p>
+                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?></a>, <a href="../../controladores/logout.php"> Sair </a></p>
                 </div>
             </div>
         </nav>
