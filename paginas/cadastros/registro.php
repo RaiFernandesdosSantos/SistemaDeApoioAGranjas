@@ -17,7 +17,7 @@
             header('Location: ../geral/pagina_restrita_gerente.php');
         endif;
     endif;
-    require_once '../../controladores/verificar_galpao.php';
+    require_once '../../controladores/verificar_cargo.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,49 +25,34 @@
     <head>
 		<meta charset = "UTF-8">
 		<title> Cadastro </title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../../css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="../../css/estilo.css" rel="stylesheet" media="screen">
+		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="text-center gradiente">
-        <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top"> 
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="navbar-brand" href="../geral/pagina_restrita_gerente.php"> SWMES </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"> Sistema de engorda </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="registro.php"> Cadastro de Funcionarios </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $pagina; ?>"> Galpões </a>
-                    </li>
-                </ul>
-                <div class="my-2 my-lg-0">
-                    <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="../../controladores/logout.php"> Sair </a></p>
+        <div class="container">
+            <?php include $bs; ?>
+            <div class="row">
+                <?php include $bl; ?>
+                <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
+                    <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                        <h1 class="h3 mb-3 font-weight-normal"> Cadastro </h1>
+                        <label for="nome" class="sr-only"> Nome </label>
+                        <input type="text" name="n" id="nome" class="form-control" placeholder="Nome" required>
+                        <label for="cpf" class="sr-only"> CPF </label>
+                        <input type="text" name="c" id="cpf" class="form-control" placeholder="CPF" required>
+                        <label for="senha" class="sr-only"> Senha </label>
+                        <input type="password" name="s" id="senha" class="form-control" placeholder="Senha" required>
+                        <label for="cargo"> Informe o cargo: </label>
+                        <select class="form-control" name="c" id="cargo">
+                            <option>  </option>
+                            <option value="1"> Gerente </option>
+                            <option value="2"> Veterinario </option>
+                            <option value="3"> Funcionario </option>
+                        </select>
+                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar </button>
+                    </form>
                 </div>
             </div>
-        </nav>
-        <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-            <h1 class="h3 mb-3 font-weight-normal"> Cadastro </h1>
-            <label for="nome" class="sr-only"> Nome </label>
-            <input type="text" name="n" id="nome" class="form-control" placeholder="Nome" required>
-            <label for="cpf" class="sr-only"> CPF </label>
-            <input type="text" name="c" id="cpf" class="form-control" placeholder="CPF" required>
-            <label for="senha" class="sr-only"> Senha </label>
-            <input type="password" name="s" id="senha" class="form-control" placeholder="Senha" required>
-            <label for="cargo"> Informe o cargo: </label>
-            <select class="form-control" name="c" id="cargo">
-                <option>  </option>
-                <option value="gerente"> Gerente </option>
-                <option value="veterinario"> Veterinario </option>
-                <option value="funcionario"> Funcionario </option>
-            </select>
-            <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar </button>
-        </form>
+        </div>
     </body>
 </html>
 

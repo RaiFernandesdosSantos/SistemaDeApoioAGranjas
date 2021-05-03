@@ -1,5 +1,5 @@
 <?php
-    include_once("../controladores/conexao_bd.php");
+    include_once("../../controladores/conexao_bd.php");
     session_start();
     $id = $_SESSION['id_usuario'];
     $sql = "SELECT * FROM usuario WHERE id = '$id'";
