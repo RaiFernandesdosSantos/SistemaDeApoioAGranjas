@@ -37,6 +37,12 @@
                             <option value="G"> Gramas </option>
                             <option value="L"> Litros </option>
                         </select>
+                        <select class="form-control" name="tipo" id="t">
+                            <option value=""> Selecione </option>
+                            <option value="1"> Ração </option>
+                            <option value="2"> Vacina </option>
+                            <option value="3"> Outros </option>
+                        </select>
                         <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
                     </form>
                 </div>

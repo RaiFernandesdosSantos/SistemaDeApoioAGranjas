@@ -33,6 +33,9 @@
                                 $item = mysqli_query($conexao, "SELECT * FROM item");
                                 while($it = mysqli_fetch_array($item))
                                 {
+                                    if($it['qtde'] >= 0):
+                                        continue;
+                                    endif;
                             ?>
                             <tr>
                                 <th scope="row"><?php echo $it['id']; ?></th>
@@ -41,8 +44,7 @@
                                 <td><?php echo $it['qtde']; ?></td>
                                 <td><a href="../movimentacao/retirada.php" class="btn btn-outline-danger"> Retirada </a></td>
                             </tr>
-                            <?php $_SESSION['idp'] = $it['id']; ?>
-                            <?php } ?>
+                            <?php $_SESSION['idp'] = $it['id']; } ?>
                         </tbody>
                     </table>
                     <a href="../cadastros/cadastrar_produto.php" class="btn btn-outline-primary"> Cadastrar Produto </a>

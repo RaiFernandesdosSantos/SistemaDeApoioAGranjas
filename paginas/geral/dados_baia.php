@@ -2,15 +2,15 @@
     include '../../controladores/autenticacao_usuario.php';
     $idb = $_SESSION['db'];
     $sql = "SELECT * FROM baia WHERE id = '$idb'";
-    $r1 = mysqli_query($conexao, $sql);
-    $db = mysqli_fetch_array($r1);
+    $rs = mysqli_query($conexao, $sql);
+    $db = mysqli_fetch_array($rs);
     $id_galpao = $db['id_galpao'];
     $sql = "SELECT * FROM galpao WHERE id = '$id_galpao'";
-    $r2 = mysqli_query($conexao, $sql);
-    $dg = mysqli_fetch_array($r2);
+    $rs = mysqli_query($conexao, $sql);
+    $dg = mysqli_fetch_array($rs);
     $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idb' AND data_hora = (SELECT max(data_hora) FROM historico_baia WHERE id_baia = '$idb')";
-    $r3 = mysqli_query($conexao, $sql);
-    $hb = mysqli_fetch_array($r3);
+    $rs = mysqli_query($conexao, $sql);
+    $hb = mysqli_fetch_array($rs);
     $menos_baia = $dg['qtde_baias'] - 1;
     $menos_porcos = $dg['total_porcos'] - $hb['qtde_porcos'];
     if(isset($_POST['btn-submit'])):
@@ -60,9 +60,14 @@
                         <input type="text" name="ctp" id="baias" class="form-control" value="<?php echo $db['capacidade_total_porcos']; ?>">
                         <label for="baias"> Media de Peso da Baia: </label>
                         <input type="text" name="mp" id="baias" class="form-control" value="<?php echo $hb['media_peso']; ?>">
-                        <button class="btn btn-outline-success" type="submit" name="btn-submit"> Mudar Dados da Baia </button>
-                        <button class="btn btn-outline-danger" type="submit" name="btn-delet"> Deletar Baia </button>
-                        <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary"> Movimentar animais </a>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-success" type="submit" name="btn-submit"> Mudar Dados da Baia </button>
+                            <button class="btn btn-outline-danger" type="submit" name="btn-delet"> Deletar Baia </button>
+                        </div>
+                        <div class="btn-group" role="group">
+                            <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary btn-sm"> Movimentar animais </a>
+                            <a href="../movimentacao/alimentar_baia.php" class="btn btn-outline-primary btn-sm"> Alimentar / Vacinar Baia </a>
+                        </div>
                     </form>
                 </div>
             </div>

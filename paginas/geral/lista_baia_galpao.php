@@ -35,7 +35,7 @@
                         <label for="galpao"> <?php echo $gp['identificacao']; ?> </label>
                         <select class="form-control" name="g<?php echo $gp['id']?>" id="galpao">
                             <option values=""> Selecione </option>
-                            <option value="<?php echo $gp['id']; ?>"> <?php echo $gp['identificacao']; ?> </option>
+                            <option value="<?php echo $gp['identificacao']; ?>"> <?php echo $gp['identificacao']; ?> </option>
                             <?php 
                                 for($baias = $gp['qtde_baias']; $baias != 0; $baias--)
                                 {
@@ -50,7 +50,7 @@
                                     $conferir = "SELECT * FROM historico_baia WHERE id_baia = '$id_baia'";
                                     $r1 = mysqli_query($conexao, $conferir);
                             ?>
-                            <option value="<?php echo $dados_baia['id']; ?>"> <?php echo $dados_baia['identificacao'] ?> </option>
+                            <option value="<?php echo $dados_baia['identificacao']; ?>"> <?php echo $dados_baia['identificacao'] ?> </option>
                             <?php 
                                     if(mysqli_num_rows($r1) != 0):
                                         continue;

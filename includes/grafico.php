@@ -5,18 +5,17 @@
     for($i = 0; $i <= 11; $i++)
     {
         $mes = $i + 1;
-        $soma[$i] = mysqli_query($conexao, "SELECT SUM(media_peso) FROM historico_baia WHERE EXTRACT(month from data_hora) = '$mes' AND EXTRACT(year from data_hora) = '$ano'");
+        $soma[$i] = mysqli_query($conexao, "SELECT SUM(media_peso) FROM historico_baia WHERE EXTRACT(month from data_hora) = '$mes' AND EXTRACT(year from data_hora) = '$ano' AND data_hora = (SELECT max(data_hora) FROM historico_baia)");
         $rs[$i] = mysqli_fetch_row($soma[$i]);
         if(empty($rs[$i][0])):
             $rs[$i][0] = 0;
         endif;
-        $sum[$i] = mysqli_query($conexao, "SELECT SUM(qtde_porcos) FROM historico_baia WHERE EXTRACT(month from data_hora) = '$mes' AND EXTRACT(year from data_hora) = '$ano'");
+        $sum[$i] = mysqli_query($conexao, "SELECT SUM(qtde_porcos) FROM historico_baia WHERE EXTRACT(month from data_hora) = '$mes' AND EXTRACT(year from data_hora) = '$ano' AND data_hora = (SELECT max(data_hora) FROM historico_baia)");
         $res[$i] = mysqli_fetch_row($sum[$i]);
         if(empty($res[$i][0])):
             $res[$i][0] = 0;
         endif;
     } 
-    //SELECT SUM(media_peso) FROM historico_baia WHERE data_hora = (SELECT MAX(data_hora) FROM historico_baia WHERE EXTRACT(month from data_hora) = '$mes' AND EXTRACT(year from data_hora) = '$ano' AND id_baia = '$bid
 ?>
 
 

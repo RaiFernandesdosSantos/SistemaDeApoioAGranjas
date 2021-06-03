@@ -1,21 +1,18 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-    $sql2 = "SELECT * FROM galpao WHERE identificacao = '$nome'";
-    $r1 = mysqli_query($conexao, $sql2);
-    $dg = mysqli_fetch_array($r1);
-    $id_galpao = $dg['id'];
-    $sql = "SELECT * FROM baia WHERE id = '$id_galpao'";
-    $r2 = mysqli_query($conexao, $sql);
-    $db = mysqli_fetch_array($r2);
+    $idg = $_SESSION['dg'];
+    $sql = "SELECT * FROM galpao WHERE id = '$idg'";
+    $rs = mysqli_query($conexao, $sql);
+    $dg = mysqli_fetch_array($rs);
     if(isset($_POST['btn-submit'])):
         $identificacao = mysqli_escape_string($conexao, $_POST['i']);
         $funcao = mysqli_escape_string($conexao, $_POST['f']);
         $sql = "UPDATE galpao SET identificacao = '$identificacao', funcao = '$funcao' WHERE identificacao = '$nome'";
         $salvar = mysqli_query($conexao, $sql);
     elseif(isset($_POST['btn-delet'])):
-        $deletar = "DELETE FROM galpao WHERE identificacao = '$nome'";
+        $deletar = "DELETE FROM galpao WHERE id = '$idg'";
         $salvar = mysqli_query($conexao, $deletar);
-        $deletar_baia = "DELETE FROM baia WHERE id_galpao = '$id_galpao'";
+        $deletar_baia = "DELETE FROM baia WHERE id_galpao = '$idg'";
         $salvar = mysqli_query($conexao, $deletar_baia);
         header('Location: lista_baia_galpao.php');
     endif;
@@ -63,9 +60,11 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <button class="btn btn-outline-success btn-sm" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
-                        <button class="btn btn-outline-danger btn-sm" type="submit" name="btn-delet"> Deletar Galpão </button>
-                        <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary"> Movimentar animais </a>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-success btn-sm" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
+                            <button class="btn btn-outline-danger btn-sm" type="submit" name="btn-delet"> Deletar Galpão </button>
+                        </div>
+                        <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary btn-block"> Movimentar animais </a>
                     </form>
                 </div>
             </div>

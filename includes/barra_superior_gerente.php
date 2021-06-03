@@ -9,9 +9,6 @@
                 <a class="navbar-brand" href="../geral/pagina_restrita_gerente.php"> SWMES </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Sistema de engorda </a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="../cadastros/registro.php"> Cadastro de Funcionarios </a>
             </li>
             <li class="nav-item">
@@ -19,7 +16,7 @@
             </li>
         </ul>
         <div class="my-2 my-lg-0">
-            <p> Olá <a href="#"> <?php echo $dados['nome']; ?> </a>, <a href="../../controladores/logout.php"> Sair </a></p>
+            <p> Olá <?php echo $dados['nome']; ?>, <a href="../../controladores/logout.php"> Sair </a></p>
         </div>
     </div>
 </nav>
