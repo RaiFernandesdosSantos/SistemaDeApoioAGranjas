@@ -7,8 +7,9 @@
     if(isset($_POST['btn-submit'])):
         $identificacao = mysqli_escape_string($conexao, $_POST['i']);
         $funcao = mysqli_escape_string($conexao, $_POST['f']);
-        $sql = "UPDATE galpao SET identificacao = '$identificacao', funcao = '$funcao' WHERE identificacao = '$nome'";
+        $sql = "UPDATE galpao SET identificacao = '$identificacao', funcao = '$funcao' WHERE id = '$idg'";
         $salvar = mysqli_query($conexao, $sql);
+        header('Location: lista_baia_galpao.php');
     elseif(isset($_POST['btn-delet'])):
         $deletar = "DELETE FROM galpao WHERE id = '$idg'";
         $salvar = mysqli_query($conexao, $deletar);
@@ -23,7 +24,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Pagina inicial </title>
+		<title> Dados dos Galpões </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">
@@ -61,8 +62,8 @@
                             </tbody>
                         </table>
                         <div class="btn-group" role="group">
-                            <button class="btn btn-outline-success btn-sm" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
-                            <button class="btn btn-outline-danger btn-sm" type="submit" name="btn-delet"> Deletar Galpão </button>
+                            <button class="btn btn-outline-success" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
+                            <button class="btn btn-outline-danger" type="submit" name="btn-delet"> Deletar Galpão </button>
                         </div>
                         <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary btn-block"> Movimentar animais </a>
                     </form>

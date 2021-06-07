@@ -1,6 +1,5 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-    unset($_SESSION['idp']);
     require_once '../../controladores/verificar_cargo.php';
 ?>
 
@@ -8,7 +7,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Pagina inicial </title>
+		<title> Estoque </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">
@@ -25,7 +24,6 @@
                                 <th scope="col"> Nome </th>
                                 <th scope="col"> Fabricante </th>
                                 <th scope="col"> Quantidade </th>
-                                <th scope="col"> Ações </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -33,7 +31,7 @@
                                 $item = mysqli_query($conexao, "SELECT * FROM item");
                                 while($it = mysqli_fetch_array($item))
                                 {
-                                    if($it['qtde'] >= 0):
+                                    if($it['qtde'] <= 0):
                                         continue;
                                     endif;
                             ?>
@@ -41,14 +39,14 @@
                                 <th scope="row"><?php echo $it['id']; ?></th>
                                 <td><?php echo $it['nome']; ?></td>
                                 <td><?php echo $it['fabricante']; ?></td>
-                                <td><?php echo $it['qtde']; ?></td>
-                                <td><a href="../movimentacao/retirada.php" class="btn btn-outline-danger"> Retirada </a></td>
+                                <td><?php echo $it['qtde']; ?>  <?php echo $it['unidade']?></td>
                             </tr>
-                            <?php $_SESSION['idp'] = $it['id']; } ?>
+                            <?php } ?>
                         </tbody>
                     </table>
                     <a href="../cadastros/cadastrar_produto.php" class="btn btn-outline-primary"> Cadastrar Produto </a>
                     <a href="../movimentacao/entrada.php" class="btn btn-outline-success"> Entrada </a>
+                    <a href="../movimentacao/retirada.php" class="btn btn-outline-danger"> Retirada </a>
                 </div>
             </div>
         </div>

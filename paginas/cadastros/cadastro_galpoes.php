@@ -6,13 +6,7 @@
         $funcao = mysqli_escape_string($conexao, $_POST['f']);
         $sql = "INSERT INTO galpao(identificacao, qtde_baias, funcao, total_porcos) VALUES ('$identificacao', '$baias', '$funcao', 0)";
         $salvar = mysqli_query($conexao, $sql);
-        $conferir = "SELECT identificacao FROM galpao WHERE identificacao = '$identificacao'";
-        $resultado = mysqli_query($conexao, $conferir);
-        if(mysqli_num_rows($resultado) == 1):
-            $cadastro_realizado = "<script> var cadastro = 'Cadastro realizado com sucesso'; </script>";
-            echo $cadastro_realizado;
-            echo "<script> alert(cadastro); </script>";
-        endif;
+        header('Location: ../geral/pagina_restrita_gerente.php');
     endif;
     require_once '../../controladores/verificar_cargo.php';
 ?>
@@ -21,7 +15,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Pagina inicial </title>
+		<title> Cadastro de Galpões </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">

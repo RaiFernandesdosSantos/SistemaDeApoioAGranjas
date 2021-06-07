@@ -5,19 +5,23 @@
         $idbd = mysqli_escape_string($conexao, $_POST['g']);
         $qtde = mysqli_escape_string($conexao, $_POST['q']);
         $motivo = mysqli_escape_string($conexao, $_POST['m']);
-        $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbo' AND data_hora = (SELECT max(data_hora) FROM historico_baia WHERE id_baia = '$idbo')";
+        $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbo' AND data_hora = (SELECT max(data_hora) FROM historico_baia 
+        WHERE id_baia = '$idbo')";
         $rs = mysqli_query($conexao, $sql);
         $hbo = mysqli_fetch_array($rs);
-        $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbd' AND data_hora = (SELECT max(data_hora) FROM historico_baia WHERE id_baia = '$idbo')";
+        $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbd' AND data_hora = (SELECT max(data_hora) FROM historico_baia 
+        WHERE id_baia = '$idbo')";
         $rs = mysqli_query($conexao, $sql);
         $hbd = mysqli_fetch_array($rs);
         $menos = $hbo['qtde_porcos'] - $qtde;
         $mais = $hbd['qtde_porcos'] + $qtde;
         $mpo = $hbo['media_peso'];
         $mpd = $hbd['media_peso'];
-        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$idbo', '$id', now(), '$menos', '$mpo', '$motivo')";
+        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) 
+        VALUES ('$idbo', '$id', now(), '$menos', '$mpo', '$motivo')";
         $salvar = mysqli_query($conexao, $sql);
-        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$idbd', '$id', now(), '$mais', '$mpd', '$motivo')";
+        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) 
+        VALUES ('$idbd', '$id', now(), '$mais', '$mpd', '$motivo')";
         $salvar = mysqli_query($conexao, $sql);
         header('Location: movimentar.php');
     endif;
@@ -28,7 +32,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Movimentação </title>
+		<title> Movimentação de Animais </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">

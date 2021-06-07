@@ -4,7 +4,8 @@
         $basva = mysqli_escape_string($conexao, $_POST['b']);
         $prod = mysqli_escape_string($conexao, $_POST['g']);
         $qtde = mysqli_escape_string($conexao, $_POST['q']);
-        $sql = "INSERT INTO historico_itens_baia(id_baia, id_usuario, id_item, qtde, dara_hora) VALUES ('$basva', '$id', '$prod', '$qtde', now())";
+        $sql = "INSERT INTO historico_itens_baia(id_baia, id_usuario, id_item, qtde, dara_hora) 
+        VALUES ('$basva', '$id', '$prod', '$qtde', now())";
         $salvar = mysqli_query($conexao, $sql);
         $sql = "INSERT INTO estoque(id_produto, id_usuario, qtde, data_hora, retirada) VALUES ('$basva', '$id', '$qtde', now(), 1)";
         $rs = mysqli_query($conexao, $sql);
@@ -22,7 +23,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Movimentação </title>
+		<title> Alimentar / Vacinar Baias </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">

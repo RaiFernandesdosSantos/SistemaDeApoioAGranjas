@@ -8,14 +8,6 @@
         $cargo = mysqli_escape_string($conexao, $_POST['c']);
         $sql = "INSERT INTO usuario(nome, cpf, senha, cargo) VALUES ('$nome', '$cpf', '$senha', '$cargo')";
         $salvar = mysqli_query($conexao, $sql);
-        $conferir = "SELECT cpf FROM usuario WHERE cpf = '$cpf'";
-        $resultado = mysqli_query($conexao, $conferir);
-        if(mysqli_num_rows($resultado) == 1):
-            $cadastro_realizado = "<script> var cadastro = 'Cadastro realizado com sucesso'; </script>";
-            echo $cadastro_realizado;
-            echo "<script> alert(cadastro); </script>";
-            header('Location: ../geral/pagina_restrita_gerente.php');
-        endif;
     endif;
     require_once '../../controladores/verificar_cargo.php';
 ?>

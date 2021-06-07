@@ -9,7 +9,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Pagina inicial </title>
+		<title> Lista de Baias e Galpões </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">
@@ -41,7 +41,8 @@
                                 {
                                     $nome = "Baia".$baias."_".$gp['id'];
                                     $id_galpao = $gp['id'];
-                                    $c_b = "INSERT INTO baia(id_galpao, identificacao, capacidade_total_porcos) VALUES ('$id_galpao', '$nome', 0)";
+                                    $c_b = "INSERT INTO baia(id_galpao, identificacao, capacidade_total_porcos) 
+                                    VALUES ('$id_galpao', '$nome', 0)";
                                     $cadas_baias = mysqli_query($conexao, $c_b);
                                     $sql2 = "SELECT * FROM baia WHERE identificacao = '$nome'";
                                     $retorno = mysqli_query($conexao, $sql2);
@@ -55,7 +56,8 @@
                                     if(mysqli_num_rows($r1) != 0):
                                         continue;
                                     else:
-                                        $hb = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$id_baia', '$id', now(), 0, 0)";
+                                        $hb = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) 
+                                        VALUES ('$id_baia', '$id', now(), 0, 0)";
                                         $historico = mysqli_query($conexao, $hb);   
                                     endif;
                                 } ?>

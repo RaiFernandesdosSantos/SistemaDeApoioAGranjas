@@ -14,7 +14,7 @@
         $mais = $it['qtde'] + $es['qtde'];
         $sql = "UPDATE item SET qtde = '$mais' WHERE id = '$idp'";
         $rs = mysqli_query($conexao, $sql);
-        header('Loacation: ../geral/estoque.php');
+        header('Location: ../geral/estoque.php');
     endif;
     require_once '../../controladores/verificar_cargo.php';
 ?>
@@ -23,7 +23,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Pagina inicial </title>
+		<title> Entrada no Estoque </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">

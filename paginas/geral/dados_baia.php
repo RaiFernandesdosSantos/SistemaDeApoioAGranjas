@@ -8,7 +8,8 @@
     $sql = "SELECT * FROM galpao WHERE id = '$id_galpao'";
     $rs = mysqli_query($conexao, $sql);
     $dg = mysqli_fetch_array($rs);
-    $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idb' AND data_hora = (SELECT max(data_hora) FROM historico_baia WHERE id_baia = '$idb')";
+    $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idb' AND data_hora = (SELECT max(data_hora) FROM historico_baia WHERE 
+    id_baia = '$idb')";
     $rs = mysqli_query($conexao, $sql);
     $hb = mysqli_fetch_array($rs);
     $menos_baia = $dg['qtde_baias'] - 1;
@@ -20,11 +21,13 @@
         $media_peso = mysqli_escape_string($conexao, $_POST['mp']);
         $sql = "UPDATE baia SET identificacao = '$identificacao', capacidade_total_porcos = '$capacidade' WHERE id = '$idb'";
         $salvar = mysqli_query($conexao, $sql);
-        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$idb', '$id', now(), '$qtde_porcos', '$media_peso')";
+        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$idb', '$id', now(), 
+        '$qtde_porcos', '$media_peso')";
         $salvar = mysqli_query($conexao, $sql);
         $mais_porcos = $dg['total_porcos'] + $hb['qtde_porcos'];
         $sql = "UPDATE galpao SET total_porcos = '$mais_porcos' WHERE id = '$id_galpao'";
         $salvar = mysqli_query($conexao, $sql);
+        header('Location: lista_baia_galpao.php');
     elseif(isset($_POST['btn-delet'])):
         $deletar = "DELETE FROM baia WHERE id = '$idb'";
         $salvar = mysqli_query($conexao, $deletar);
@@ -41,7 +44,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Pagina inicial </title>
+		<title> Dados das Baias </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">

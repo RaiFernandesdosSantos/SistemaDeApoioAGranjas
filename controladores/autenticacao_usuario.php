@@ -6,6 +6,6 @@
     $resultado = mysqli_query($conexao, $sql);
     $dados = mysqli_fetch_array($resultado);
     if(!isset($_SESSION['logado'])):
-        header('Loacation: ../../index.php');
+        header('Location: ../../index.php');
     endif;
 ?>

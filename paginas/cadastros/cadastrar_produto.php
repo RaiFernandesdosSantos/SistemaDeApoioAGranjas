@@ -6,6 +6,7 @@
         $unidade = mysqli_escape_string($conexao, $_POST['unidade']);
         $sql = "INSERT INTO item(nome, fabricante, unidade, qtde) VALUES ('$nome', '$fabricante', '$unidade', 0)";
         $salvar = mysqli_query($conexao, $sql);
+        header('Location: ../geral/estoque.php');
     endif;
     require_once '../../controladores/verificar_cargo.php';
 ?>
@@ -14,7 +15,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Pagina inicial </title>
+		<title> Cadstro de Produtos </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">
