@@ -16,7 +16,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Cadastro </title>
+		<title> Cadastro de Funcionários </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="text-center gradiente">
@@ -26,7 +26,7 @@
                 <?php include $bl; ?>
                 <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
                     <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <h1 class="h3 mb-3 font-weight-normal"> Cadastro </h1>
+                        <h1 class="h3 mb-3 font-weight-normal"> Cadastro de Funcionários </h1>
                         <label for="nome" class="sr-only"> Nome </label>
                         <input type="text" name="n" id="nome" class="form-control" placeholder="Nome" required>
                         <label for="cpf" class="sr-only"> CPF </label>
@@ -38,9 +38,9 @@
                             <option>  </option>
                             <option value="1"> Gerente </option>
                             <option value="2"> Veterinario </option>
-                            <option value="3"> Funcionario </option>
+                            <option value="3"> Funcionário </option>
                         </select>
-                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar </button>
+                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar Funcionário </button>
                     </form>
                 </div>
             </div>

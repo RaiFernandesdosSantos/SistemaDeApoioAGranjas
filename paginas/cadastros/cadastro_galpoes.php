@@ -33,12 +33,12 @@
                         <label for="funcao"> Informe a função desse galpão: </label>
                         <select class="form-control" name="f" id="funcao">
                             <option value=""> Selecione </option>
-                            <option value="Maternidade"> Maternidade </option>
-                            <option value="Creche"> Creche </option>
-                            <option value="Terminacao"> Terminação </option>
-                            <option value="Quarentena"> Quarentena </option>
+                            <option value="1"> Maternidade </option>
+                            <option value="2"> Creche </option>
+                            <option value="3"> Terminação </option>
+                            <option value="4"> Quarentena </option>
                         </select>
-                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
+                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar Galpão </button>
                     </form>
                 </div>
             </div>

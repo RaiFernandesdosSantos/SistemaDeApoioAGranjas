@@ -15,7 +15,7 @@
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title> Cadstro de Produtos </title>
+		<title> Cadastro de Produtos </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body class="gradiente">
@@ -30,21 +30,23 @@
                         <input type="text" name="nome" id="n" class="form-control" placeholder="Nome" required>
                         <label for="f" class="sr-only"> Fabricante </label>
                         <input type="text" name="fabricante" id="f" class="form-control" placeholder="Fabricante" required>
-                        <label for="u"> Informe a unidade do produto: </label>
+                        <label for="u"> Informe a medida do produto: </label>
                         <select class="form-control" name="unidade" id="u">
                             <option value=""> Selecione </option>
                             <option value="Kg"> Quilogramas </option>
                             <option value="Ml"> Mililitros </option>
                             <option value="G"> Gramas </option>
                             <option value="L"> Litros </option>
+                            <option value="U"> Unidade </option>
                         </select>
+                        <label for="t"> Informe o tipo do produto </label>
                         <select class="form-control" name="tipo" id="t">
                             <option value=""> Selecione </option>
                             <option value="1"> Ração </option>
                             <option value="2"> Vacina </option>
                             <option value="3"> Outros </option>
                         </select>
-                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
+                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar Produto </button>
                     </form>
                 </div>
             </div>

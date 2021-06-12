@@ -61,7 +61,7 @@
                         <input type="text" name="qp" id="porcos" class="form-control" value="<?php echo $hb['qtde_porcos']; ?>">
                         <label for="baias"> Capacidade Total de Porcos: </label>
                         <input type="text" name="ctp" id="baias" class="form-control" value="<?php echo $db['capacidade_total_porcos']; ?>">
-                        <label for="baias"> Media de Peso da Baia: </label>
+                        <label for="baias"> Média de Peso da Baia: </label>
                         <input type="text" name="mp" id="baias" class="form-control" value="<?php echo $hb['media_peso']; ?>">
                         <div class="btn-group" role="group">
                             <button class="btn btn-outline-success" type="submit" name="btn-submit"> Mudar Dados da Baia </button>

@@ -154,3 +154,14 @@ body
 {
   color: #007bff;
 }
+@media print
+{
+  .noprint
+  {
+    display: none;
+  }
+  .titulo
+  {
+    font-size: 26pt;
+  }
+}

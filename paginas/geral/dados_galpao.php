@@ -53,10 +53,10 @@
                                     <label for="funcao"> Função do Galpão: </label>
                                     <select class="form-control" name="f" id="funcao">
                                         <option value="<?php echo $dg['funcao']; ?>"> <?php echo $dg['funcao']; ?> </option>
-                                        <option value="Maternidade"> Maternidade </option>
-                                        <option value="Creche"> Creche </option>
-                                        <option value="Terminacao"> Terminação </option>
-                                        <option value="Quarentena"> Quarentena </option>
+                                        <option value="1"> Maternidade </option>
+                                        <option value="2"> Creche </option>
+                                        <option value="3"> Terminação </option>
+                                        <option value="4"> Quarentena </option>
                                     </select>
                                 </tr>
                             </tbody>

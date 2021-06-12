@@ -35,7 +35,7 @@
                 <input type="text" name="c" id="cpf" class="form-control" placeholder="CPF" required>
                 <label for="senha" class="sr-only"> Senha </label>
                 <input type="password" name="s" id="senha" class="form-control" placeholder="Senha" required>
-                <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Cadastrar </button>
+                <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
                 <a href="../../index.php" class="btn btn-outline-primary btn-block"> Voltar </a>
             </form>
         </div>

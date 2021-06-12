@@ -17,7 +17,7 @@
         break;
         else:
             $criar = "CREATE TABLE galpao(id int NOT NULL AUTO_INCREMENT, identificacao VARCHAR(255) NOT NULL, qtde_baias int NOT NULL, 
-            total_porcos int NOT NULL, funcao VARCHAR(11) NOT NULL, PRIMARY KEY('id'), UNIQUE KEY('identificacao'))";
+            total_porcos int NOT NULL, funcao int NOT NULL, PRIMARY KEY('id'), UNIQUE KEY('identificacao'))";
             $criar_tabela = mysqli_query($conexao, $criar);
     endif;
     $sql = "SHOW TABLES LIKE baia";

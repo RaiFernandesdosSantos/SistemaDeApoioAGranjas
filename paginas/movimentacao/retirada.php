@@ -44,7 +44,7 @@
                 <?php include $bl; ?>
                 <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
                     <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                        <h1 class="h3 mb-3 font-weight-normal"> Entrada de Estoque </h1>
+                        <h1 class="h3 mb-3 font-weight-normal"> Retirada de Estoque </h1>
                         <label for="item"> Produtos: </label>
                         <select class="form-control" name="produtos" id="item">
                             <option values=""> Selecione </option>

@@ -4,17 +4,18 @@
         $basva = mysqli_escape_string($conexao, $_POST['b']);
         $prod = mysqli_escape_string($conexao, $_POST['g']);
         $qtde = mysqli_escape_string($conexao, $_POST['q']);
-        $sql = "INSERT INTO historico_itens_baia(id_baia, id_usuario, id_item, qtde, dara_hora) 
+        $sql = "INSERT INTO historico_itens_baia(id_baia, id_usuario, id_item, qtde, data_hora) 
         VALUES ('$basva', '$id', '$prod', '$qtde', now())";
         $salvar = mysqli_query($conexao, $sql);
-        $sql = "INSERT INTO estoque(id_produto, id_usuario, qtde, data_hora, retirada) VALUES ('$basva', '$id', '$qtde', now(), 1)";
+        $sql = "INSERT INTO estoque(id_produto, id_usuario, qtde, data_hora, retirada) VALUES ('$prod', '$id', '$qtde', now(), 1)";
         $rs = mysqli_query($conexao, $sql);
         $sql = "SELECT * FROM item WHERE id = '$prod'";
         $rs = mysqli_query($conexao, $sql);
         $it = mysqli_fetch_array($rs);
         $menos = $it['qtde'] - $qtde;
         $sql = "UPDATE item SET qtde = '$menos' WHERE id = '$prod'";
-        header('Location: ../geral/lista_bai_galpao.php');
+        $rs = mysqli_query($conexao, $sql);
+        header('Location: ../geral/lista_baia_galpao.php');
     endif;
     include '../../controladores/verificar_cargo.php';
 ?>
@@ -37,23 +38,23 @@
                         <select class="form-control" name="b" id="baia">
                             <option value=""> Selecione uma opção </option>
                             <?php 
-                                $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
-                                while($gp = mysqli_fetch_array($galpoes))
+                                $baias = mysqli_query($conexao, "SELECT * FROM baia");
+                                while($ba = mysqli_fetch_array($baias))
                                 {
-                                    $gpid = $gp['id'];
-                                    $baias = mysqli_query($conexao, "SELECT * FROM baia WHERE id_galpao = '$gpid'");
-                                    while($ba = mysqli_fetch_array($baias))
-                                    {
                             ?>
-                            <option value="<?php echo $ba['id']; ?>" id="b<?php echo $gp['id']; ?>"><?php echo $ba['identificacao'] ?></option>
-                            <?php } ?>
+                            <option value="<?php echo $ba['id']; ?>"><?php echo $ba['identificacao'] ?></option>
                             <?php } ?>
                         </select>
                         <label for="galpoes"> Produtos: </label>
                         <select class="form-control" name="g" id="galpoes">
                             <option value=""> Selecione uma opção </option>
                             <?php 
-                                $prod = mysqli_query($conexao, "SELECT * FROM produtos WHERE tipo = 1 OR tipo = 2");
+                                $cargo = $dados['cargo'];
+                                if($cargo == 1 || $cargo == 2):
+                                    $prod = mysqli_query($conexao, "SELECT * FROM item WHERE tipo = 1 OR tipo = 2");
+                                else:
+                                    $prod = mysqli_query($conexao, "SELECT * FROM item WHERE tipo = 1");
+                                endif;
                                 while($pr = mysqli_fetch_array($prod))
                                 {
                             ?>
