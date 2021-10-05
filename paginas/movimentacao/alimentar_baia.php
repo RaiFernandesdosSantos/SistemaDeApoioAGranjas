@@ -4,18 +4,24 @@
         $basva = mysqli_escape_string($conexao, $_POST['b']);
         $prod = mysqli_escape_string($conexao, $_POST['g']);
         $qtde = mysqli_escape_string($conexao, $_POST['q']);
-        $sql = "INSERT INTO historico_itens_baia(id_baia, id_usuario, id_item, qtde, data_hora) 
-        VALUES ('$basva', '$id', '$prod', '$qtde', now())";
-        $salvar = mysqli_query($conexao, $sql);
-        $sql = "INSERT INTO estoque(id_produto, id_usuario, qtde, data_hora, retirada) VALUES ('$prod', '$id', '$qtde', now(), 1)";
-        $rs = mysqli_query($conexao, $sql);
         $sql = "SELECT * FROM item WHERE id = '$prod'";
         $rs = mysqli_query($conexao, $sql);
         $it = mysqli_fetch_array($rs);
         $menos = $it['qtde'] - $qtde;
-        $sql = "UPDATE item SET qtde = '$menos' WHERE id = '$prod'";
-        $rs = mysqli_query($conexao, $sql);
-        header('Location: ../geral/lista_baia_galpao.php');
+        if($menos <= 0):
+            $sem = "<script> var sem = 'Quantidade insuficiente, tente novamente.'; </script>";
+            echo $sem;
+            echo "<script> alert(sem); </script>";
+        else:
+            $sql = "INSERT INTO historico_itens_baia(id_baia, id_usuario, id_item, qtde, data_hora) 
+            VALUES ('$basva', '$id', '$prod', '$qtde', now())";
+            $salvar = mysqli_query($conexao, $sql);
+            $sql = "INSERT INTO estoque(id_produto, id_usuario, qtde, data_hora, retirada) VALUES ('$prod', '$id', '$qtde', now(), 1)";
+            $rs = mysqli_query($conexao, $sql);
+            $sql = "UPDATE item SET qtde = '$menos' WHERE id = '$prod'";
+            $rs = mysqli_query($conexao, $sql);
+            header('Location: ../geral/lista_baia_galpao.php');
+        endif;
     endif;
     include '../../controladores/verificar_cargo.php';
 ?>
@@ -63,7 +69,10 @@
                         </select>
                         <label for="qtde"> Quantidade: </label>
                         <input type="text" name="q" id="qtde" class="form-control" placeholder="Quantidade" required>
-                        <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Alimentar / Vacinar Baia </button>
+                        <div class="btn-group">
+                            <button class="btn btn-lg btn-outline-success" type="submit" name="btn-submit"> Alimentar / Vacinar Baia </button>
+                            <a class="btn btn-lg btn-outline-primary" href="../geral/lista_baia_galpao.php"> Voltar </a>
+                        </div>
                     </form>
                 </div>
             </div>

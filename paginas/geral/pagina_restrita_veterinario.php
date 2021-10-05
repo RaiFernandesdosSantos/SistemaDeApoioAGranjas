@@ -15,7 +15,6 @@
             <?php include '../../includes/barra_superior_outros.php'; ?>
             <div class="row">
                 <?php include '../../includes/barra_lateral_outros.php'; ?>
-                <?php include '../../include/grafico.php'; ?>
             </div>
         </div>
     </body>

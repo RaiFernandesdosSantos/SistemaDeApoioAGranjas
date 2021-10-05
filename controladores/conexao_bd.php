@@ -9,7 +9,4 @@
         die("Falha na conexao: " .$conexao -> connect_error);
         include_once("criar_bd.php");
     }
-    $sucesso = "<script> var sucesso = 'Banco de dados conectado com sucesso'; </script>";
-    echo $sucesso;
-    echo "<script> alert(sucesso); </script>";
 ?>

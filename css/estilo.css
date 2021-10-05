@@ -39,7 +39,7 @@ body
 }
 .gradiente
 {
-  background-image: linear-gradient(to bottom, #FFB6C1, #F5F5F5);
+  background-color: #FFB6C1;
 }
 .bd-placeholder-img 
 {

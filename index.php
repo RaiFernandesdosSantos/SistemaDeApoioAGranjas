@@ -59,8 +59,8 @@
                 <input type="text" id="inputCPF" class="form-control" placeholder="CPF" name="cpf" required>
                 <label for="inputPassword" class="sr-only"> Senha </label>
                 <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="senha" required>
-                <a href="paginas/cadastros/cadastro_gerente.php" class="btn btn-outline-warning btn-block"> Registre-se </a>
-                <button class="btn btn-outline-primary btn-block" type="submit" name="btn-entrar"> Login </button>
+                <a href="paginas/cadastros/cadastro_gerente.php" class="btn btn-warning btn-block"> Registre-se </a>
+                <button class="btn btn-primary btn-block" type="submit" name="btn-entrar"> Login </button>
             </form>
         </div>
     </body>

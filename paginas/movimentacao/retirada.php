@@ -9,7 +9,7 @@
         $qm = $it['qtde'] - $q;
         $itq = $it['qtde'];
         if($qm <= 0):
-            $erro = "<script> var erro = 'Quantidade invalida,coloque outra quantidade.'; </script>";
+            $erro = "<script> var erro = 'Quantidade insuficiente, tente novamente.'; </script>";
             echo $erro;
             echo "<script> alert(erro); </script>";
         else:
@@ -58,7 +58,12 @@
                         </select>
                         <label for="q" class="sr-only"> Quantidade: </label>
                         <input type="text" name="qtde" id="q" class="form-control" placeholder="Quantidade" required>
-                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Retirar </button>
+                        <label for="m" class="sr-only"> Motivo: </label>
+                        <input type="text" name="motivo" id="m" class="form-control" placeholder="Motivo" required>
+                        <div class="btn-group">
+                            <button class="btn btn-lg btn-outline-danger" type="submit" name="btn-submit"> Retirar </button>
+                            <a class="btn btn-lg btn-outline-primary" href="../geral/estoque.php"> Voltar </a>
+                        </div>
                     </form>
                 </div>
             </div>

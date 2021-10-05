@@ -4,13 +4,23 @@
     $sql = "SELECT * FROM galpao WHERE id = '$idg'";
     $rs = mysqli_query($conexao, $sql);
     $dg = mysqli_fetch_array($rs);
+    if($dg['funcao'] == 1):
+        $f = "Maternidade";
+        elseif($dg['funcao'] == 2):
+            $f = "Creche";
+        elseif($dg['funcao'] == 3):
+            $f = "Terminação";
+        elseif($dg['funcao'] == 4):
+            $f = "Quarentena";
+    endif;
     if(isset($_POST['btn-submit'])):
         $identificacao = mysqli_escape_string($conexao, $_POST['i']);
         $funcao = mysqli_escape_string($conexao, $_POST['f']);
         $sql = "UPDATE galpao SET identificacao = '$identificacao', funcao = '$funcao' WHERE id = '$idg'";
         $salvar = mysqli_query($conexao, $sql);
         header('Location: lista_baia_galpao.php');
-    elseif(isset($_POST['btn-delet'])):
+    endif;
+    if($confEx == 1):
         $deletar = "DELETE FROM galpao WHERE id = '$idg'";
         $salvar = mysqli_query($conexao, $deletar);
         $deletar_baia = "DELETE FROM baia WHERE id_galpao = '$idg'";
@@ -52,7 +62,7 @@
                                 <tr>
                                     <label for="funcao"> Função do Galpão: </label>
                                     <select class="form-control" name="f" id="funcao">
-                                        <option value="<?php echo $dg['funcao']; ?>"> <?php echo $dg['funcao']; ?> </option>
+                                        <option value="<?php echo $dg['funcao']; ?>"> <?php echo $f; ?> </option>
                                         <option value="1"> Maternidade </option>
                                         <option value="2"> Creche </option>
                                         <option value="3"> Terminação </option>
@@ -61,15 +71,26 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-outline-success" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
-                            <button class="btn btn-outline-danger" type="submit" name="btn-delet"> Deletar Galpão </button>
-                        </div>
+                        <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
+                        <a href="#" onclick="excluir()" class="btn btn-outline-danger btn-block"> Deletar Baia </a>
                         <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary btn-block"> Movimentar animais </a>
                     </form>
                 </div>
             </div>
         </div>
+        <script>
+            function excluir() 
+            {
+                if (confirm("Deseja excluir este Curso?")) 
+                {
+                    <?php $confEx = 1; ?>
+                }
+                else
+                {
+                    <?php $confEx = 0; ?>
+                }
+            }
+        </script>
     </body>
 </html>
 

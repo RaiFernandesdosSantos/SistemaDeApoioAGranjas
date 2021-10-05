@@ -46,7 +46,7 @@
             datasets:  
             [
                 {
-                    label: 'Total da Média de Pesos da Granja',
+                    label: 'Peso Total da Granja',
                     backgroundColor: 'rgb(255, 255, 0)',
                     borderColor: 'rgb(255, 255, 0)',
                     data: [<?php echo $rs[0][0]; ?>, <?php echo $rs[1][0]; ?>, <?php echo $rs[2][0]; ?>, <?php echo $rs[3][0]; ?>, 

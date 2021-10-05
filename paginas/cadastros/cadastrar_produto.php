@@ -46,7 +46,10 @@
                             <option value="2"> Vacina </option>
                             <option value="3"> Outros </option>
                         </select>
-                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar Produto </button>
+                        <div class="btn-group">
+                            <button class="btn btn-lg btn-outline-success" type="submit" name="btn-submit"> Cadastrar Produto </button>
+                            <a class="btn btn-lg btn-outline-primary" href="../geral/estoque.php"> Voltar </a>
+                        </div>
                     </form>
                 </div>
             </div>

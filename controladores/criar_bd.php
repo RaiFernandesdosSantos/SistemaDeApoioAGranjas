@@ -62,7 +62,7 @@
         break;
         else:
             $criar = "CREATE TABLE historico_itens_baia(id int NOT NULL AUTO_INCREMENT, id_baia int NOT NULL, id_usuario int NOT NULL, 
-            id_item int NOT NULL, qtde double,data_hora DATETIME, PRIMARY KEY ('id'))";
+            id_item int NOT NULL, qtde double, data_hora DATETIME, PRIMARY KEY ('id'))";
     endif;
     mysqli_close($conexao);
     unset($conexao);

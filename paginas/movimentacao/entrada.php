@@ -34,6 +34,16 @@
                 <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
                     <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <h1 class="h3 mb-3 font-weight-normal"> Entrada de Estoque </h1>
+                        
+
+
+                        <label for="n" class="sr-only"> Número da Nota Fiscal: </label>
+                        <input type="text" name="nf" id="n" class="form-control" placeholder="Nota Fiscal" required>
+
+                        <label for="l" class="sr-only"> Lote: </label>
+                        <input type="text" name="lote" id="l" class="form-control" placeholder="Lote" required>
+
+
                         <label for="item"> Produtos: </label>
                         <select class="form-control" name="produtos" id="item">
                             <option values=""> Selecione </option>
@@ -47,7 +57,38 @@
                         </select>
                         <label for="q" class="sr-only"> Quantidade: </label>
                         <input type="text" name="qtde" id="q" class="form-control" placeholder="Quantidade" required>
-                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Dar entrada </button>
+
+
+                        <label for="forn"> Fornecedor: </label>
+                        <select class="form-control" name="fornecedor" id="forn">
+                            <option values=""> Selecione </option>
+                            <?php 
+                                $item = mysqli_query($conexao, "SELECT * FROM item");
+                                while($it = mysqli_fetch_array($item))
+                                {
+                            ?>
+                            <option value="<?php echo $it['id']; ?>"> <?php echo $it['nome'] ?> </option>
+                            <?php } ?>
+                        </select>
+
+                        <label for="dcom"> Data Compra: </label>
+                        <input type="date" name="datCom" id="dcom" class="form-control" required>
+
+                        <label for="dc"> Data Chegada: </label>
+                        <input type="date" name="datChe" id="dc" class="form-control" required>
+
+                        <label for="v"> Vencimento: </label>
+                        <input type="date" name="venci" id="v" class="form-control" required>
+                        
+                        <label for="p" class="sr-only"> Preço Unitario: </label>
+                        <input type="text" name="pu" id="p" class="form-control" placeholder="Preço Unitario" required>
+
+
+
+                        <div class="btn-group">
+                            <button class="btn btn-lg btn-outline-success btn-block" type="submit" name="btn-submit"> Dar entrada </button>
+                            <a class="btn btn-lg btn-outline-primary" href="../geral/estoque.php"> Voltar </a>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -2,13 +2,25 @@
     include '../../controladores/autenticacao_usuario.php';
     require_once '../../controladores/verificar_cargo.php';
     $data = date("d / m / y");
+    $inicial = mysqli_escape_string($conexao, $_POST['inicial']);
+    $final = mysqli_escape_string($conexao, $_POST['final']);
+    $begin = mysqli_escape_string($conexao, $_POST['inicialp']);
+    $end = mysqli_escape_string($conexao, $_POST['finalp']);
+    $pi = explode("-", $inicial);
+    $pf = explode("-", $final);
+    $pii = explode("-", $begin);
+    $pff = explode("-", $end);
+    $periodoi = $pi[2]." / ".$pi[1]." / ".$pi[0];
+    $periodof = $pf[2]." / ".$pf[1]." / ".$pf[0];
+    $peri = $pii[2]." / ".$pii[1]." / ".$pii[0];
+    $perf = $pff[2]." / ".$pff[1]." / ".$pff[0];
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
 		<meta charset = "UTF-8">
-		<title class="no-print"> Estoque </title>
+		<title> Estoque </title>
 		<?php include '../../includes/head.php'; ?>
 	</head>
     <body style="background-color: lightgray;">
@@ -24,15 +36,17 @@
             <div class="row">
                 <div class=" offset-md-1 offset-lg-1 col-md-10 col-lg-10 bg-light">
                     <h3> Relatório Mensal - <?php echo $data; ?></h3>
+                    <h3> Periodo Selecionado - <?php echo $periodoi; ?> || <?php echo $periodof; ?></h3>
+                    <h3> Priodo de Comparação - <?php echo $peri; ?> || <?php echo $perf; ?>
                     <h5> Galpões </h5>
                     <table class="table table-light table-striped">
                         <thead>
                             <tr>
                                 <th scope="col"> Galpão </th>
-                                <th scope="col"> Quantidade de Porcos Atual </th>
-                                <th scope="col"> Média Peso Atual </th>
-                                <th scope="col"> Crescimento de porcos comparado com mês anterior </th>
-                                <th scope="col"> Crescimento de peso comparado com mês anterior </th>
+                                <th scope="col"> Quantidade de Porcos </th>
+                                <th scope="col"> Média Peso </th>
+                                <th scope="col"> Crescimento de porcos no periodo selecionado </th>
+                                <th scope="col"> Crescimento de peso no periodo selecionado </th>
                             </tr>
                         </thead>
                         <?php
@@ -47,18 +61,14 @@
                                 $baia = mysqli_query($conexao, "SELECT * FROM baia WHERE id_galpao = '$idg'");
                                 while($ba = mysqli_fetch_array($baia))
                                 {
-                                    $mes = date('m');
-                                    $ano = date('Y');
                                     $idba = $ba['id'];
-                                    $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE 
-                                    EXTRACT(month from data_hora) = '$mes' AND EXTRACT(year from data_hora) = '$ano' AND id_baia = '$idba'");
+                                    $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$inicial' and 
+                                    data_hora <= '$final' AND id_baia = '$idba'");
                                     $histo = mysqli_fetch_array($sql);
                                     $tq += $histo['qtde_porcos'];
                                     $tm += $histo['media_peso'];
-                                    $anterior = $mes - 1;
-                                    $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE 
-                                    EXTRACT(month from data_hora) = '$anterior' AND EXTRACT(year from data_hora) = '$ano' 
-                                    AND id_baia = '$idba'");
+                                    $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$begin' and 
+                                    data_hora <= '$end' AND id_baia = '$idba'");
                                     $hs = mysqli_fetch_array($sql);
                                     $tqa += $hs['qtde_porcos'];
                                     $tma += $hs['media_peso'];
@@ -74,7 +84,7 @@
                             <tr>
                                 <td rowspan="2"><?php echo $gp['identificacao']; ?></td>
                                 <td> Quantidade de Porcos Atual do Galpão: <?php echo $tq; ?></td>
-                                <td> Média Peso do Atual do Galpão: <?php echo $tm; ?></td>
+                                <td> Peso Atual do Galpão: <?php echo $tm; ?></td>
                                 <td><?php echo $porq; ?>% (<?php echo $cresq; ?>) </td>
                                 <td><?php echo $porm; ?>% (<?php echo $cresm; ?>) </td>
                             </tr>
@@ -93,7 +103,8 @@
                             </tr>
                         </thead>
                         <?php
-                            $historico = mysqli_query($conexao, "SELECT * FROM historico_itens_baia");
+                            $historico = mysqli_query($conexao, "SELECT * FROM historico_itens_baia WHERE data_hora >= '$inicial' 
+                            and data_hora <= '$final'");
                             while($hib = mysqli_fetch_array($historico))
                             {
                                 $idp = $hib['id_item'];

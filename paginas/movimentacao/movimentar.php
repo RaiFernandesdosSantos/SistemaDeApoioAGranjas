@@ -84,7 +84,10 @@
                         <input type="text" name="q" id="qtde" class="form-control" placeholder="Quantidade de animais movimentada" required>
                         <label for="motivo"> Motivo da movimentação: </label>
                         <input type="text" name="m" id="motivo" class="form-control" placeholder="Motivo da Movimentação" required>
-                        <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Movimentar animais </button>
+                        <div class="btn-group">
+                            <button class="btn btn-lg btn-outline-success" type="submit" name="btn-submit"> Movimentar animais </button>
+                            <a class="btn btn-lg btn-outline-primary" href="../geral/lista_baia_galpao.php"> Voltar </a>
+                        </div>
                     </form>
                 </div>
             </div>

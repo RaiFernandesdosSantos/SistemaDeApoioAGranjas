@@ -28,7 +28,8 @@
         $sql = "UPDATE galpao SET total_porcos = '$mais_porcos' WHERE id = '$id_galpao'";
         $salvar = mysqli_query($conexao, $sql);
         header('Location: lista_baia_galpao.php');
-    elseif(isset($_POST['btn-delet'])):
+    endif;
+    if($confEx == 1):
         $deletar = "DELETE FROM baia WHERE id = '$idb'";
         $salvar = mysqli_query($conexao, $deletar);
         $deletar = "DELETE FROM historico_baia WHERE id = '$idb'";
@@ -63,10 +64,8 @@
                         <input type="text" name="ctp" id="baias" class="form-control" value="<?php echo $db['capacidade_total_porcos']; ?>">
                         <label for="baias"> Média de Peso da Baia: </label>
                         <input type="text" name="mp" id="baias" class="form-control" value="<?php echo $hb['media_peso']; ?>">
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-outline-success" type="submit" name="btn-submit"> Mudar Dados da Baia </button>
-                            <button class="btn btn-outline-danger" type="submit" name="btn-delet"> Deletar Baia </button>
-                        </div>
+                        <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Mudar Dados da Baia </button>
+                        <a href="#" onclick="excluir()" class="btn btn-outline-danger btn-block"> Deletar Baia </a>
                         <div class="btn-group" role="group">
                             <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary btn-sm"> Movimentar animais </a>
                             <a href="../movimentacao/alimentar_baia.php" class="btn btn-outline-primary btn-sm"> Alimentar / Vacinar Baia </a>
@@ -75,6 +74,19 @@
                 </div>
             </div>
         </div>
+        <script>
+            function excluir() 
+            {
+                if (confirm("Deseja excluir este Curso?")) 
+                {
+                    <?php $confEx = 1; ?>
+                }
+                else
+                {
+                    <?php $confEx = 0; ?>
+                }
+            }
+        </script>
     </body>
 </html>
 
