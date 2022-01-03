@@ -63,11 +63,11 @@
                         <select class="form-control" name="fornecedor" id="forn">
                             <option values=""> Selecione </option>
                             <?php 
-                                $item = mysqli_query($conexao, "SELECT * FROM item");
-                                while($it = mysqli_fetch_array($item))
+                                $forn = mysqli_query($conexao, "SELECT * FROM fornecedor");
+                                while($fo = mysqli_fetch_array($forn))
                                 {
                             ?>
-                            <option value="<?php echo $it['id']; ?>"> <?php echo $it['nome'] ?> </option>
+                            <option value="<?php echo $fo['id']; ?>"> <?php echo $fo['fantasia'] ?> </option>
                             <?php } ?>
                         </select>
 

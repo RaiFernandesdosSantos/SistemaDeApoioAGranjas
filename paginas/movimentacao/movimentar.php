@@ -5,25 +5,44 @@
         $idbd = mysqli_escape_string($conexao, $_POST['g']);
         $qtde = mysqli_escape_string($conexao, $_POST['q']);
         $motivo = mysqli_escape_string($conexao, $_POST['m']);
+        $bo = mysqli_query($conexao, "SELECT * FROM baia WHERE id = '$idbo'");
+        $orig = mysqli_fetch_array($bo);
         $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbo' AND data_hora = (SELECT max(data_hora) FROM historico_baia 
         WHERE id_baia = '$idbo')";
         $rs = mysqli_query($conexao, $sql);
-        $hbo = mysqli_fetch_array($rs);
-        $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbd' AND data_hora = (SELECT max(data_hora) FROM historico_baia 
-        WHERE id_baia = '$idbo')";
-        $rs = mysqli_query($conexao, $sql);
-        $hbd = mysqli_fetch_array($rs);
-        $menos = $hbo['qtde_porcos'] - $qtde;
-        $mais = $hbd['qtde_porcos'] + $qtde;
-        $mpo = $hbo['media_peso'];
-        $mpd = $hbd['media_peso'];
-        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) 
-        VALUES ('$idbo', '$id', now(), '$menos', '$mpo', '$motivo')";
-        $salvar = mysqli_query($conexao, $sql);
-        $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) 
-        VALUES ('$idbd', '$id', now(), '$mais', '$mpd', '$motivo')";
-        $salvar = mysqli_query($conexao, $sql);
-        header('Location: movimentar.php');
+        $qp = mysqli_fetch_array($rs);
+        $bd = mysqli_query($conexao, "SELECT * FROM baia WHERE id = '$idbd'");
+        $dest = mysqli_fetch_array($bd);
+        if($qtde > $qp['qtde_porcos']):
+            $erro1 = "<script> var erro1 = 'Quantidade de porcos insuficiente.'; </script>";
+            echo $erro1;
+            echo "<script> alert(erro1); </script>";
+            if($qtde > $dest['capacidade_total_porcos']):
+                $erro2 = "<script> var erro2 = 'Quantidade de porcos maior do que a capacidade permitida pela baia.'; </script>";
+                echo $erro2;
+                echo "<script> alert(erro1); </script>";
+            else:
+                $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbo' AND data_hora = (SELECT max(data_hora) FROM historico_baia 
+                WHERE id_baia = '$idbo')";
+                $rs = mysqli_query($conexao, $sql);
+                $hbo = mysqli_fetch_array($rs);
+                $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idbd' AND data_hora = (SELECT max(data_hora) FROM historico_baia 
+                WHERE id_baia = '$idbo')";
+                $rs = mysqli_query($conexao, $sql);
+                $hbd = mysqli_fetch_array($rs);
+                $menos = $hbo['qtde_porcos'] - $qtde;
+                $mais = $hbd['qtde_porcos'] + $qtde;
+                $mpo = $hbo['media_peso'];
+                $mpd = $hbd['media_peso'];
+                $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) 
+                VALUES ('$idbo', '$id', now(), '$menos', '$mpo', '$motivo')";
+                $salvar = mysqli_query($conexao, $sql);
+                $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) 
+                VALUES ('$idbd', '$id', now(), '$mais', '$mpd', '$motivo')";
+                $salvar = mysqli_query($conexao, $sql);
+                header('Location: movimentar.php');
+            endif;
+        endif;  
     endif;
     include '../../controladores/verificar_cargo.php';
 ?>

@@ -6,14 +6,6 @@
     $final = mysqli_escape_string($conexao, $_POST['final']);
     $begin = mysqli_escape_string($conexao, $_POST['inicialp']);
     $end = mysqli_escape_string($conexao, $_POST['finalp']);
-    $pi = explode("-", $inicial);
-    $pf = explode("-", $final);
-    $pii = explode("-", $begin);
-    $pff = explode("-", $end);
-    $periodoi = $pi[2]." / ".$pi[1]." / ".$pi[0];
-    $periodof = $pf[2]." / ".$pf[1]." / ".$pf[0];
-    $peri = $pii[2]." / ".$pii[1]." / ".$pii[0];
-    $perf = $pff[2]." / ".$pff[1]." / ".$pff[0];
 ?>
 
 <!DOCTYPE html>
@@ -36,8 +28,8 @@
             <div class="row">
                 <div class=" offset-md-1 offset-lg-1 col-md-10 col-lg-10 bg-light">
                     <h3> Relatório Mensal - <?php echo $data; ?></h3>
-                    <h3> Periodo Selecionado - <?php echo $periodoi; ?> || <?php echo $periodof; ?></h3>
-                    <h3> Priodo de Comparação - <?php echo $peri; ?> || <?php echo $perf; ?>
+                    <h3> Periodo Selecionado - <?php echo $inicial; ?> || <?php echo $final; ?></h3>
+                    <h3> Priodo de Comparação - <?php echo $begin; ?> || <?php echo $end; ?>
                     <h5> Galpões </h5>
                     <table class="table table-light table-striped">
                         <thead>

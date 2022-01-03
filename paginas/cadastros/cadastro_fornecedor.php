@@ -1,7 +1,16 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
     if(isset($_POST['btn-submit'])):
-        
+        $nome = mysqli_escape_string($conexao, $_POST['n']);
+        $cnpj = mysqli_escape_string($conexao, $_POST['c']);
+        $rep = mysqli_escape_string($conexao, $_POST['r']);
+        $tel = mysqli_escape_string($conexap, $_POST['t']);
+        $email = mysqli_escape_string($conexao, $_POST['e']);
+        $endereco = mysqli_escape_string($conexao, $_POST['en']);
+        $sql = "INSERT INTO fornecedor(razao_social, fantasia, cnpj, telefone, email, endereco) 
+        VALUES ('$nome', '$cnpj', '$rep', '$tel', '$email', '$endereco')";
+        $salvar = mysqli_query($conexao, $sql);
+        header('Location: ../geral/estoque.php');
     endif;
     require_once '../../controladores/verificar_cargo.php';
 ?>
@@ -32,7 +41,7 @@
                         <label for="email" class="sr-only"> E-mail </label>
                         <input type="text" name="e" id="email" class="form-control" placeholder="E-mail" required>
                         <label for="ender" class="sr-only"> Endereço </label>
-                        <input type="text" name="e" id="ender" class="form-control" placeholder="Endereço" required>
+                        <input type="text" name="en" id="ender" class="form-control" placeholder="Endereço" required>
                         <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar Funcionário </button>
                     </form>
                 </div>

@@ -2,9 +2,10 @@
     include '../../controladores/autenticacao_usuario.php';
     if(isset($_POST['btn-submit'])):
         $nome = mysqli_escape_string($conexao, $_POST['nome']);
-        $fabricante = mysqli_escape_string($conexao, $_POST['fabricante']);
+        $fornecedor = mysqli_escape_string($conexao, $_POST['forne']);
         $unidade = mysqli_escape_string($conexao, $_POST['unidade']);
-        $sql = "INSERT INTO item(nome, fabricante, unidade, qtde) VALUES ('$nome', '$fabricante', '$unidade', 0)";
+        $tipo = mysqli_escape_string($conexao, $_POST['tipo'])
+        $sql = "INSERT INTO item(nome, fornecedor, unidade, qtde, tipo) VALUES ('$nome', '$fornecedor', '$unidade', '$tipo', 0)";
         $salvar = mysqli_query($conexao, $sql);
         header('Location: ../geral/estoque.php');
     endif;
@@ -28,8 +29,17 @@
                         <h1 class="h3 mb-3 font-weight-normal"> Cadastro de Produtos </h1>
                         <label for="n" class="sr-only"> Nome </label>
                         <input type="text" name="nome" id="n" class="form-control" placeholder="Nome" required>
-                        <label for="f" class="sr-only"> Fabricante </label>
-                        <input type="text" name="fabricante" id="f" class="form-control" placeholder="Fabricante" required>
+                        <?php 
+                            $fornecedor = mysqli_query($conexao, "SELECT * FROM fornecedor");
+                            while($forn = mysqli_fetch_array($fornecedor))
+                            {
+                        ?>
+                        <label for="f" class="sr-only"> <?php echo $forn['fantasia']; ?> </label>
+                        <select class="form-control" name="forne" id="f">
+                            <option values=""> Selecione </option>
+                            <option value="<?php echo $forn['id']; ?>"> <?php echo $forn['fantasia']; ?> </option>
+                        </select>
+                        <?php } ?>
                         <label for="u"> Informe a medida do produto: </label>
                         <select class="form-control" name="unidade" id="u">
                             <option value=""> Selecione </option>
