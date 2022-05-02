@@ -20,19 +20,35 @@
             <?php include $bs; ?>
             <div class="row">
                 <?php include $bl; ?>
+
+                <p class="offset-md-3 offset-lg-3"> Esse relatorio apresenta um comparativo com o crescimento de porcos da granja na 
+                    data selecionada, e também apresenta uma tabela com os produtos utilizados no periodo. </p>
+
                 <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
+
+                    <!-- Formulario para selecionar o periodo que deseja comparar -->
+
                     <form class="form-signin" method="POST" action="impressao.php">
                         <label for="b"> Data Inicial:  </label>
+                        
                         <input type="date" id="b" name="inicial" class="form-control" required>
+
                         <label for="e"> Data Final:  </label>
                         <input type="date" id="e" name="final" class="form-control" required>
+
                         <h5> Comparar com o periodo: </h5>
+
                         <label for="bp"> Data Inicial:  </label>
                         <input type="date" id="bp" name="inicialp" class="form-control" required>
+
                         <label for="ep"> Data Final:  </label>
                         <input type="date" id="ep" name="finalp" class="form-control" required>
+
                         <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Ver Relatorio </button>
                     </form>
+
+                    <!-- -->
+
                 </div>
             </div>
         </div>

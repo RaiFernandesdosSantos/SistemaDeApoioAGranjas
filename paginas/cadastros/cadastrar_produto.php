@@ -1,14 +1,22 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
+
+    //Script para inserir produtos no Banco de Dados
+
     if(isset($_POST['btn-submit'])):
         $nome = mysqli_escape_string($conexao, $_POST['nome']);
         $fornecedor = mysqli_escape_string($conexao, $_POST['forne']);
         $unidade = mysqli_escape_string($conexao, $_POST['unidade']);
-        $tipo = mysqli_escape_string($conexao, $_POST['tipo'])
+        $tipo = mysqli_escape_string($conexao, $_POST['tipo']);
+
         $sql = "INSERT INTO item(nome, fornecedor, unidade, qtde, tipo) VALUES ('$nome', '$fornecedor', '$unidade', '$tipo', 0)";
         $salvar = mysqli_query($conexao, $sql);
+        
         header('Location: ../geral/estoque.php');
     endif;
+    
+    //
+
     require_once '../../controladores/verificar_cargo.php';
 ?>
 
@@ -25,11 +33,19 @@
             <div class="row">
                 <?php include $bl; ?>
                 <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
+                    
+                    <!-- Formulario para o cadastro de produtos -->
+
                     <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <h1 class="h3 mb-3 font-weight-normal"> Cadastro de Produtos </h1>
+
                         <label for="n" class="sr-only"> Nome </label>
                         <input type="text" name="nome" id="n" class="form-control" placeholder="Nome" required>
+
                         <?php 
+
+                            //Listagem de todos os fornecedores cadastrados no Banco de Dados
+
                             $fornecedor = mysqli_query($conexao, "SELECT * FROM fornecedor");
                             while($forn = mysqli_fetch_array($fornecedor))
                             {
@@ -39,7 +55,15 @@
                             <option values=""> Selecione </option>
                             <option value="<?php echo $forn['id']; ?>"> <?php echo $forn['fantasia']; ?> </option>
                         </select>
-                        <?php } ?>
+                        <?php 
+                            } 
+                            
+                            //
+
+                        ?>
+
+                        <!-- Select com as unidades de medidas para os produtos -->
+
                         <label for="u"> Informe a medida do produto: </label>
                         <select class="form-control" name="unidade" id="u">
                             <option value=""> Selecione </option>
@@ -49,6 +73,10 @@
                             <option value="L"> Litros </option>
                             <option value="U"> Unidade </option>
                         </select>
+                        
+                        <!-- -->
+                        <!-- Select com os tipos de produtos -->
+
                         <label for="t"> Informe o tipo do produto </label>
                         <select class="form-control" name="tipo" id="t">
                             <option value=""> Selecione </option>
@@ -56,11 +84,17 @@
                             <option value="2"> Vacina </option>
                             <option value="3"> Outros </option>
                         </select>
+                        
+                        <!-- -->
+
                         <div class="btn-group">
                             <button class="btn btn-lg btn-outline-success" type="submit" name="btn-submit"> Cadastrar Produto </button>
                             <a class="btn btn-lg btn-outline-primary" href="../geral/estoque.php"> Voltar </a>
                         </div>
                     </form>
+
+                    <!-- -->
+
                 </div>
             </div>
         </div>

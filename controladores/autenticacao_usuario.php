@@ -1,4 +1,7 @@
 <?php
+
+    //Pesquisa no Banco de Dados para verificar se é um úsuario cadastrado
+
     include_once("../../controladores/conexao_bd.php");
     session_start();
     $id = $_SESSION['id_usuario'];
@@ -8,4 +11,7 @@
     if(!isset($_SESSION['logado'])):
         header('Location: ../../index.php');
     endif;
+
+    //
+
 ?>

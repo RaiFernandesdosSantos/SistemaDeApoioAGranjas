@@ -18,64 +18,53 @@
                 <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
                     <h4 class="text-muted"> Estoque </h4>
 
-                    <!-- Tabela com todos os produtos cadastrados no estoque -->
+                    <!-- Tabela com todos os lotes diferentes do produto selecionado -->
 
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col"> # </th>
+                                <th scope="col"> Lote </th>
                                 <th scope="col"> Nome </th>
-                                <th scope="col"> Fabricante </th>
                                 <th scope="col"> Quantidade </th>
+                                <th scope="col"> Vencimento </th>
                             </tr>
-
                         </thead>
                         <tbody>
+
+                            <!-- Parte responsavel pela procura e impressao dos dados dos produtos na tela -->
                             <?php 
                                 $item = mysqli_query($conexao, "SELECT * FROM item");
                                 while($it = mysqli_fetch_array($item))
                                 {
 
-                                    //Script para verificar a quantidade dos produtos
+                                    //Verifica se a quantidade não é igual a zero, caso for ele pula o produto
 
-                                    $qtde = 0;
-
-                                    $idProd = $it['id'];
-                                    $estoque = mysqli_query($conexao, "SELECT * FROM estoque WHERE id_produto = '$idProd' AND retirada = 0");
-                                    while($estEnt = mysqli_fetch_array($estoque))
-                                    {
-                                        $qtde += $estEnt['qtde'];
-                                    }
-
-                                    $estoq = mysqli_query($conexao, "SELECT * FROM estoque WHERE id_produto = '$idProd' AND retirada = 1");
-                                    while($estRet = mysqli_fetch_array($estoq))
-                                    {
-                                        $qtde -= $estRet['qtde'];
-                                    }
-
-                                    if($qtde <= 0):
+                                    if($it['qtde'] <= 0):
                                         continue;
                                     endif;
-                                    
+
                                     //
-                                    
                             ?>
 
                             <tr>
-                                <th scope="row"><?php echo $it['id']; ?></th>
-                                <td><a href="../geral/produto.php"> <?php echo $it['nome']; ?> </a></td>
-                                <td><?php echo $it['fabricante']; ?></td>
-                                <td><?php echo $qtde; ?>  <?php echo $it['unidade']?></td>
+                                <th scope="row"><?php echo $it['lote']; ?></th>
+                                <td><?php echo $it['nome']; ?></td>
+                                <td><?php echo $it['qtde']; ?>  <?php echo $it['unidade']?></td>
+                                <td><?php echo $it['vencimento']; ?></td>
                             </tr>
+
                             <?php } ?>
+                            
+                            <!-- -->
+
                         </tbody>
                     </table>
 
                     <!-- -->
 
-                    <a href="../cadastros/cadastrar_produto.php" class="btn btn-outline-primary"> Cadastrar Produto </a>
                     <a href="../movimentacao/entrada.php" class="btn btn-outline-success"> Entrada </a>
                     <a href="../movimentacao/retirada.php" class="btn btn-outline-danger"> Retirada </a>
+                    <a href="../geral/estoque.php" class="btn btn-outline-primary"> Voltar </a>
                 </div>
             </div>
         </div>

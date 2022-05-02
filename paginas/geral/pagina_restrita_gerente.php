@@ -15,6 +15,7 @@
             <?php include '../../includes/barra_superior_gerente.php'; ?>
             <div class="row">
                 <?php include '../../includes/barra_lateral_gerente.php'; ?>
+                <?php include '../../includes/mensagem.php'; ?>
             </div>
         </div>
     </body>
