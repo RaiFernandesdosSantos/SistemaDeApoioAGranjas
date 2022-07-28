@@ -1,6 +1,6 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-    $confEx = 0;
+    require_once '../../controladores/verificar_cargo.php';
 
     //Procura e Armazenagem dos dados do Galpão selecionado
 
@@ -32,33 +32,7 @@
         header('Location: lista_baia_galpao.php');
     endif;
 
-    //
-    //Parte responsavel pela alterção de registros relacionados ao Galpão selecionado
-
-    if($confEx == 1):
-        $deletar = "DELETE FROM galpao WHERE id = '$idg'";
-        $salvar = mysqli_query($conexao, $deletar);
-
-        $selBaia = "SELECT * FROM baia WHERE id_galpao = '$idg'";
-        $rs = mysqli_query($conexao, $selBaia);
-        
-
-        while($baias = mysqli_fetch_array($rs))
-        {
-            $idb = $baia['id'];
-            $delHist = "DELETE FROM historico_baia WHERE id_baia = '$idb'";
-            $salvar = mysqli_query($conexao, $delHist);
-        }
-
-        $deletar_baia = "DELETE FROM baia WHERE id_galpao = '$idg'";
-        $salvar = mysqli_query($conexao, $deletar_baia);
-
-        header('Location: lista_baia_galpao.php');
-    endif;
-
-    //
-
-    require_once '../../controladores/verificar_cargo.php';
+    //  
 ?>
 
 <!DOCTYPE html>
@@ -116,7 +90,10 @@
                         </table>
 
                         <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Mudar Dados do Galpão </button>
-                        <a href="#" onclick="excluir()" class="btn btn-outline-danger btn-block"> Deletar Galpão </a>
+
+                        <a href="../../controladores/deletar_galpao.php?id=<?php echo $idg;?>" class="btn btn-outline-danger btn-block"> 
+                        Deletar Galpão </a>
+
                         <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary btn-block"> Movimentar animais </a>
                         <a class="btn btn-outline-primary btn-block" href="../geral/lista_baia_galpao.php"> Voltar </a>
                     </form>
@@ -126,25 +103,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Script para confirmação de exclusão do Galpão -->
-
-        <script>
-            function excluir() 
-            {
-                if (confirm("Deseja excluir este Curso?")) 
-                {
-                    <?php $confEx = 1; ?>
-                }
-                else
-                {
-                    <?php $confEx = 0; ?>
-                }
-            }
-        </script>
-
-        <!-- -->
-        
     </body>
 </html>
 

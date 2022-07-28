@@ -1,6 +1,7 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-
+    require_once '../../controladores/verificar_cargo.php';
+    
     //Script responsavel pelo cadastro de funcionarios no Banco de Dados
 
     if(isset($_POST['btn-submit'])):
@@ -8,16 +9,15 @@
         $cpf = mysqli_escape_string($conexao, $_POST['c']);
         $senha = mysqli_escape_string($conexao, $_POST['s']);
         $senha = md5($senha);
-        $cargo = mysqli_escape_string($conexao, $_POST['c']);
+        $cargo = mysqli_escape_string($conexao, $_POST['ca']);
 
         $sql = "INSERT INTO usuario(nome, cpf, senha, cargo) VALUES ('$nome', '$cpf', '$senha', '$cargo')";
         $salvar = mysqli_query($conexao, $sql);
+        
+        header('Location: ../paginas/geral/lista_funcionario.php');
     endif;
 
-    //
-
-    require_once '../../controladores/verificar_cargo.php';
-?>
+    // ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,7 +50,7 @@
                         <!-- Select com os cargos disponiveis para acesso ao sistema -->
 
                         <label for="cargo"> Informe o cargo: </label>
-                        <select class="form-control" name="c" id="cargo">
+                        <select class="form-control" name="ca" id="cargo">
                             <option>  </option>
                             <option value="1"> Gerente </option>
                             <option value="2"> Veterinario </option>
@@ -59,7 +59,9 @@
 
                         <!-- -->
                         
-                        <button class="btn btn-lg btn-outline-primary btn-block" type="submit" name="btn-submit"> Cadastrar Funcionário </button>
+                        <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> 
+                        Cadastrar Funcionário </button>
+                        <a href="../geral/pagina_restrita_gerente.php" class="btn btn-outline-primary btn-block"> Voltar </a>
                     </form>
 
                     <!-- -->

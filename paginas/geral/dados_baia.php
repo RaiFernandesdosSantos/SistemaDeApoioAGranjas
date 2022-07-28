@@ -1,7 +1,6 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-
-    $confEx = 0;
+    require_once '../../controladores/verificar_cargo.php';
 
     //Procura e Armazenamento dos dados da Baia selecionada
 
@@ -16,7 +15,7 @@
     $dg = mysqli_fetch_array($rs);
 
     $sql = "SELECT * FROM historico_baia WHERE id_baia = '$idb' AND data_hora = (SELECT max(data_hora) FROM historico_baia WHERE 
-    id_baia = '$idb')";
+    id_baia = '$idb') AND retirada = 0";
     $rs = mysqli_query($conexao, $sql);
     $hb = mysqli_fetch_array($rs);
 
@@ -36,6 +35,9 @@
         $sql = "UPDATE baia SET identificacao = '$identificacao', capacidade_total_porcos = '$capacidade' WHERE id = '$idb'";
         $salvar = mysqli_query($conexao, $sql);
 
+        $sql = "UPDATE galpao SET total_porcos = '$menos_porcos' WHERE id = '$id_galpao'";
+        $salvar = mysqli_query($conexao, $sql);
+
         $sql = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES ('$idb', '$id', now(), 
         '$qtde_porcos', '$media_peso')";
         $salvar = mysqli_query($conexao, $sql);
@@ -47,26 +49,7 @@
         header('Location: lista_baia_galpao.php');
     endif;
 
-    //
-    //Script para atualização dos registro relacionados a Baia selecionada
-
-    if($confEx == 1):
-        $deletar = "DELETE FROM baia WHERE id = '$idb'";
-        $salvar = mysqli_query($conexao, $deletar);
-
-        $deletar = "DELETE FROM historico_baia WHERE id = '$idb'";
-        $salvar = mysqli_query($conexao, $deletar);
-
-        $atualiza = "UPDATE galpao SET qtde_baias = '$menos_baia', total_porcos = '$menos_porcos' WHERE id = '$id_galpao'";
-        $salvar = mysqli_query($conexao, $atualiza);
-
-        header('Location: lista_baia_galpao.php');
-    endif;
-
-    //
-    
-    require_once '../../controladores/verificar_cargo.php';
-?>
+    // ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -100,7 +83,10 @@
                         <input type="text" name="mp" id="baias" class="form-control" value="<?php echo $hb['media_peso']; ?>">
 
                         <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Mudar Dados da Baia </button>
-                        <a href="#" onclick="excluir()" class="btn btn-outline-danger btn-block"> Deletar Baia </a>
+
+                        <a href="../../controladores/deletar_baia.php?id=<?php echo $idb; ?>" class="btn btn-outline-danger btn-block"> 
+                        Deletar Baia </a>
+
                         <div class="btn-group" role="group">
                             <a href="../movimentacao/movimentar.php" class="btn btn-outline-primary btn-sm"> Movimentar animais </a>
                             <a href="../movimentacao/alimentar_baia.php" class="btn btn-outline-primary btn-sm"> Alimentar / Vacinar Baia </a>
@@ -113,25 +99,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Script para confirmação de exclusão da Baia selecionada -->
-
-        <script>
-            function excluir() 
-            {
-                if (confirm("Deseja excluir este Curso?")) 
-                {
-                    <?php $confEx = 1; ?>
-                }
-                else
-                {
-                    <?php $confEx = 0; ?>
-                }
-            }
-        </script>
-
-        <!-- -->
-        
     </body>
 </html>
 

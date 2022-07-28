@@ -22,9 +22,7 @@
         endif;
     endif;
 
-    //
-
-?>
+    // ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -50,8 +48,8 @@
                 <label for="senha" class="sr-only"> Senha </label>
                 <input type="password" name="s" id="senha" class="form-control" placeholder="Senha" required>
                 
-                <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
-                <a href="../../index.php" class="btn btn-outline-primary btn-block"> Voltar </a>
+                <button class="btn btn-success btn-block" type="submit" name="btn-submit"> Cadastrar-se </button>
+                <a href="../../index.php" class="btn btn-primary btn-block"> Voltar </a>
             </form>
 
             <!-- -->

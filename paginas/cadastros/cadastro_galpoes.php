@@ -1,6 +1,7 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-
+    require_once '../../controladores/verificar_cargo.php';
+    
     //Script responsavel pela inserção dos dados no Banco de Dados
 
     if(isset($_POST['btn-submit'])):
@@ -11,13 +12,32 @@
         $sql = "INSERT INTO galpao(identificacao, qtde_baias, funcao, total_porcos) VALUES ('$identificacao', '$baias', '$funcao', 0)";
         $salvar = mysqli_query($conexao, $sql);
 
-        header('Location: ../geral/dados_galpao.php');
+        for($b = $baias; $b != 0; $b--)
+        {
+            $galpoes = mysqli_query($conexao, "SELECT * FROM galpao WHERE identificacao = '$identificacao'");
+            $gp = mysqli_fetch_array($galpoes);
+
+            $nome = "Baia"." ".$b." - Galpão ".$gp['id'];
+            $id_galpao = $gp['id'];
+
+            $c_b = "INSERT INTO baia(id_galpao, identificacao, capacidade_total_porcos) VALUES ('$id_galpao', '$nome', 40)";
+            $cadas_baias = mysqli_query($conexao, $c_b);
+
+            $sql = "SELECT * FROM baia WHERE identificacao = '$identificacao'";
+            $rs = mysqli_query($conexao, $sql);
+            $db = mysqli_fetch_array($rs);
+
+            $id_baia = $db['id'];
+
+            $hb = "INSERT INTO historico_baia(id_baia, id_usuario, data_hora, qtde_porcos, media_peso) VALUES 
+            ('$id_baia', '$id', now(), 0, 0)";
+            $historico = mysqli_query($conexao, $hb); 
+        }
+
+        header('Location: ../geral/lista_baia_galpao.php');
     endif;
 
-    //
-
-    require_once '../../controladores/verificar_cargo.php';
-?>
+    // ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">

@@ -15,7 +15,7 @@
             <?php include $bs; ?>
             <div class="row">
                 <?php include $bl; ?>
-                <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
+                <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light pre-scrollable">
                     <h4 class="text-muted"> Estoque </h4>
 
                     <!-- Tabela com todos os produtos cadastrados no estoque -->
@@ -28,7 +28,6 @@
                                 <th scope="col"> Fabricante </th>
                                 <th scope="col"> Quantidade </th>
                             </tr>
-
                         </thead>
                         <tbody>
                             <?php 
@@ -39,8 +38,8 @@
                                     //Script para verificar a quantidade dos produtos
 
                                     $qtde = 0;
-
                                     $idProd = $it['id'];
+                                    
                                     $estoque = mysqli_query($conexao, "SELECT * FROM estoque WHERE id_produto = '$idProd' AND retirada = 0");
                                     while($estEnt = mysqli_fetch_array($estoque))
                                     {
@@ -57,25 +56,25 @@
                                         continue;
                                     endif;
                                     
-                                    //
+                                    // ?>
                                     
-                            ?>
-
-                            <tr>
-                                <th scope="row"><?php echo $it['id']; ?></th>
-                                <td><a href="../geral/produto.php"> <?php echo $it['nome']; ?> </a></td>
-                                <td><?php echo $it['fabricante']; ?></td>
-                                <td><?php echo $qtde; ?>  <?php echo $it['unidade']?></td>
-                            </tr>
-                            <?php } ?>
+                                <tr>
+                                    <th scope="row"><?php echo $it['id']; ?></th>
+                                    <td><a href="../geral/produto.php?id=<?php echo $it['id']; ?>"> <?php echo $it['nome']; ?> </a></td>
+                                    <td><?php echo $it['fabricante']; ?></td>
+                                    <td><?php echo $qtde; ?>  <?php echo $it['unidade']?></td>
+                                </tr>
+                            <?php } ?>  
                         </tbody>
                     </table>
 
                     <!-- -->
-
+                    
+                </div>
+                <div class=" offset-md-3 offset-lg-3 col-md-9 col-lg-9 bg-light">
                     <a href="../cadastros/cadastrar_produto.php" class="btn btn-outline-primary"> Cadastrar Produto </a>
                     <a href="../movimentacao/entrada.php" class="btn btn-outline-success"> Entrada </a>
-                    <a href="../movimentacao/retirada.php" class="btn btn-outline-danger"> Retirada </a>
+                    <a href="../movimentacao/retirada.php" class="btn btn-outline-danger"> Retirada </a>            
                 </div>
             </div>
         </div>

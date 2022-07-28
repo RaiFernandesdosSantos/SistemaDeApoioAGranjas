@@ -1,27 +1,27 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-
+    require_once '../../controladores/verificar_cargo.php';
+    
     //Script para cadastro de fornecedores no Banco de Dados
 
     if(isset($_POST['btn-submit'])):
-        $nome = mysqli_escape_string($conexao, $_POST['n']);
+        $nome = mysqli_escape_string($conexao, $_POST['rz']);
+        $fantasia = mysqli_escape_string($conexao, $_POST['f']);
         $cnpj = mysqli_escape_string($conexao, $_POST['c']);
-        $rep = mysqli_escape_string($conexao, $_POST['r']);
+        $rep = mysqli_escape_string($conexao, $_POST['ve']);
         $tel = mysqli_escape_string($conexap, $_POST['t']);
         $email = mysqli_escape_string($conexao, $_POST['e']);
         $endereco = mysqli_escape_string($conexao, $_POST['en']);
+        $vendedor = mysqli_escape_string($conexao, $_POST['ve']);
 
-        $sql = "INSERT INTO fornecedor(razao_social, fantasia, cnpj, telefone, email, endereco) 
-        VALUES ('$nome', '$cnpj', '$rep', '$tel', '$email', '$endereco')";
+        $sql = "INSERT INTO fornecedor(razao_social, fantasia, cnpj, telefone, email, endereco, vendedor) 
+        VALUES ('$nome', '$fantasia','$cnpj', '$rep', '$tel', '$email', '$endereco', '$vendedor')";
         $salvar = mysqli_query($conexao, $sql);
 
         header('Location: ../geral/estoque.php');
     endif;
 
-    //
-
-    require_once '../../controladores/verificar_cargo.php';
-?>
+    // ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,11 +42,11 @@
                     <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                         <h1 class="h3 mb-3 font-weight-normal"> Cadastro de Fornecedores </h1>
 
-                        <label for="rep" class="sr-only"> Razão Social </label>
-                        <input type="text" name="r" id="rep" class="form-control" placeholder="Razão Social" required>
+                        <label for="razao" class="sr-only"> Razão Social </label>
+                        <input type="text" name="rz" id="razao" class="form-control" placeholder="Razão Social" required>
                         
-                        <label for="nome" class="sr-only"> Nome Fantasia </label>
-                        <input type="text" name="n" id="nome" class="form-control" placeholder="Nome Fantasia" required>
+                        <label for="fantasia" class="sr-only"> Nome Fantasia </label>
+                        <input type="text" name="f" id="fantasia" class="form-control" placeholder="Nome Fantasia" required>
 
                         <label for="cnpj" class="sr-only"> CNPJ </label>
                         <input type="text" name="c" id="cnpj" class="form-control" placeholder="CNPJ" required>
@@ -59,9 +59,12 @@
 
                         <label for="ender" class="sr-only"> Endereço </label>
                         <input type="text" name="en" id="ender" class="form-control" placeholder="Endereço" required>
+
+                        <label for="vend" class="sr-only"> Vendedor ou Responsável </label>
+                        <input type="text" name="ve" id="vend" class="form-control" placeholder="Vendedor ou Responsável" required>
                         
-                        <button class="btn btn-lg btn-outline-success btn-block" type="submit" name="btn-submit"> Cadastrar Funcionário </button>
-                        <a class="btn btn-lg btn-outline-primary btn-block" href="../geral/pagina_restrita_gerente.php"> Voltar </a>
+                        <button class="btn btn-outline-success btn-block" type="submit" name="btn-submit"> Cadastrar Fornecedor </button>
+                        <a class="btn btn-outline-primary btn-block" href="../geral/pagina_restrita_gerente.php"> Voltar </a>
                     </form>
 
                     <!-- -->

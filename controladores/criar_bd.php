@@ -46,7 +46,8 @@
         break;
         else:
             $criar = "CREATE TABLE historico_baia(id int NOT NULL AUTO_INCREMENT, id_baia int NOT NULL, id_usuario int NOT NULL, 
-            data_hora DATETIME NOT NULL, qtde_porcos int, media_peso double, motivo VARCHAR(255), PRIMARY KEY('id'))";
+            data_hora DATETIME NOT NULL, qtde_porcos int, media_peso double, motivo VARCHAR(255), retirada boolean NOT NULL, 
+            PRIMARY KEY('id'))";
             $criar_tabela = mysqli_query($conexao, $criar);
     endif;
 
@@ -86,12 +87,13 @@
 
     $sql = "SHOW TABLES LIKE fornecedor";
     $rs = mysqli_query($conexao, $sql);
+    
     if(mysqli_num_rows($rs == 1)):
         break;
         else:
             $criar = "CREATE TABLE fornecedor(id int NOT NULL AUTO_INCREMENT, razao_social VARCHAR(255) NOT NULL, 
             fantasia VARCHAR(255) NOT NULL, cnpj VARCHAR(50) NOT NULL, telefone VARCHAR(50) NOT NULL, email VARCHAR(255) NOT NULL, 
-            endereco VARCHAR(255) NOT NULL, PRIMARY KEY ('id'))";
+            endereco VARCHAR(255) NOT NULL, vendedor VARCHAR(255) NOT NULL, PRIMARY KEY ('id'))";
     endif;
 
     //

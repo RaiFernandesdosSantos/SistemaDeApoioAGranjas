@@ -4,7 +4,6 @@
 
     //Armazenagem das datas selecionadas para comparação
 
-    $data = date("d / m / y");
     $inicial = mysqli_escape_string($conexao, $_POST['inicial']);
     $final = mysqli_escape_string($conexao, $_POST['final']);
     $begin = mysqli_escape_string($conexao, $_POST['inicialp']);
@@ -37,8 +36,7 @@
             <!-- -->
 
             <div class="row">
-                <div class=" offset-md-1 offset-lg-1 col-md-10 col-lg-10 bg-light">
-                    <h3> Relatório Mensal - <?php echo $data; ?></h3>
+                <div class=" offset-md-1 offset-lg-1 col-md-10 col-lg-10 bg-light pre-scrollable">
                     <h3> Periodo Selecionado - <?php echo $inicial; ?> || <?php echo $final; ?></h3>
                     <h3> Priodo de Comparação - <?php echo $begin; ?> || <?php echo $end; ?>
                     <h5> Galpões </h5>
@@ -60,56 +58,113 @@
                             $galpoes = mysqli_query($conexao, "SELECT * FROM galpao");
                             while($gp = mysqli_fetch_array($galpoes))
                             {
-                                $idg = $gp['id'];
-                                $tq = 0;
-                                $tm = 0;
-                                $tqa = 0;
-                                $tma = 0;
+                                if(empty($gp)):
+                                    $quantidade = 0;
+                                    $mediaPeso = 0;
+                                    $cresciQtde = 0;
+                                    $cresciPeso = 0;
+                                    $porcentagemQtde = 0;
+                                    $porcetagemPeso = 0;
+                                    $identificacaoGalpao = "Galpão Vazio";
+                                    continue;
+                                else:
+                                    $idGalpao = $gp['id'];
+                                    $identificacaoGalpao = $gp['identificacao'];
+                                    $quantidade = 0;
+                                    $mediaPeso = 0;
+                                    $qtdeAntiga = 0;
+                                    $pesoAntigo = 0;
 
-                                $baia = mysqli_query($conexao, "SELECT * FROM baia WHERE id_galpao = '$idg'");
-                                while($ba = mysqli_fetch_array($baia))
-                                {
+                                    $baia = mysqli_query($conexao, "SELECT * FROM baia WHERE id_galpao = '$idGalpao'");
+                                    while($ba = mysqli_fetch_array($baia))
+                                    {
+                                        
+                                        //Script para recuperar as informações contidas no Banco de dados
+                                        if(empty($ba)):
+                                            continue;
+                                        else:
+                                            $idba = $ba['id'];
+                                            
+                                            $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$begin' and 
+                                            data_hora <= '$end' AND id_baia = '$idba' AND retirada = 0");
+                                            $histoEnt = mysqli_fetch_array($sql);
+
+                                            $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$begin' and 
+                                            data_hora <= '$end' and id_baia = '$idba' and retirada = 1");
+                                            $histoRet = mysqli_fetch_array($sql);
+
+                                            if(empty($histoEnt) && empty($histoRet)):
+                                                continue;
+                                            elseif(empty($histoEnt)):
+                                                continue;
+                                            elseif(empty($histoRet)):
+                                                $quantidade += $histoEnt['qtde_porcos'];
+                                                $mediaPeso += $histoEnt['media_peso'];
+                                            else:
+                                                $quantidade = $histoEnt['qtde_porcos'] - $histoRet['qtde_porcos'];
+                                                $mediaPeso = $histoEnt['media_peso'] - $histoRet['media_peso'];
+                                            endif;
+
+                                            $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$inicial' and 
+                                            data_hora <= '$final' AND id_baia = '$idba' and retirada = 0");
+                                            $hsEnt = mysqli_fetch_array($sql);
+
+                                            $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$inicial' and 
+                                            data_hora <= '$final' AND id_baia = '$idba' and retirada = 1");
+                                            $hsRet = mysqli_fetch_array($sql);
+                                            
+                                            if(empty($hsEnt) && empty($hsRet)):
+                                                continue;
+                                            elseif(empty($hsEnt)):
+                                                continue;
+                                            elseif(empty($hsRet)):
+                                                $qtdeAntiga += $hsEnt['qtde_porcos'];
+                                                $pesoAntigo += $hsEnt['media_peso'];
+                                            else:
+                                                $qtdeAntiga = $hsEnt['qtde_porcos'] - $hsRet['qtde_porcos'];
+                                                $pesoAntigo = $hsEnt['media_peso'] - $hsRet['media_peso'];
+                                            endif;
+                                        endif;
+
+                                        //
+                                    }
+
+                                    //Parte responsavel por tranformar os dados comparados em porcentagem
+
+                                    if($qtdeAntiga == 0):
+                                        $qtdeAntiga = 1;
+                                    elseif($pesoAntigo == 0):
+                                        $pesoAntigo = 1;
+                                    endif;
+
+                                    if($quantidade == 0):
+                                        $porcentagemQtde = -100;
+                                    else:
+                                        $porcentagemQtde = ($quantidade * 100) / $qtdeAntiga;
+                                    endif;
+
+                                    if($mediaPeso == 0):
+                                        $porcetagemPeso = -100;
+                                    else:
+                                        $porcetagemPeso = ($mediaPeso * 100) / $pesoAntigo;
+                                    endif;
+
+                                    $cresciQtde = $quantidade - $qtdeAntiga;
+                                    $cresciPeso = $mediaPeso - $pesoAntigo;
                                     
-                                    //Script para recuperar as informações contidas no Banco de dados
+                                    $porcentagemQtde = round($porcentagemQtde, 2);
+                                    $porcetagemPeso = round($porcetagemPeso, 2);
+                                endif;
 
-                                    $idba = $ba['id'];
-                                    $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$inicial' and 
-                                    data_hora <= '$final' AND id_baia = '$idba'");
-                                    $histo = mysqli_fetch_array($sql);
-
-                                    $tq += $histo['qtde_porcos'];
-                                    $tm += $histo['media_peso'];
-
-                                    $sql = mysqli_query($conexao, "SELECT * FROM historico_baia WHERE data_hora >= '$begin' and 
-                                    data_hora <= '$end' AND id_baia = '$idba'");
-                                    $hs = mysqli_fetch_array($sql);
-
-                                    $tqa += $hs['qtde_porcos'];
-                                    $tma += $hs['media_peso'];
-
-                                    //
-
-                                }
-
-                                //Parte responsavel por tranformar os dados comparados em porcentagem
-
-                                $cresq = $tq - $tqa;
-                                $porq = ($cresq * 100) / $tqa;
-                                $cresm = $tm - $tma;
-                                $porm = ($cresm * 100) / $tma;
-                                $porq = round($porq, 2);
-                                $porm = round($porm, 2);
-
-                                //
-                        ?>
+                                // ?>
 
                         <tbody>
                             <tr>
-                                <td rowspan="2"><?php echo $gp['identificacao']; ?></td>
-                                <td> Quantidade de Porcos Atual do Galpão: <?php echo $tq; ?></td>
-                                <td> Peso Atual do Galpão: <?php echo $tm; ?></td>
-                                <td> <?php echo $cresq; ?> (<?php echo $porq; ?>%) </td>
-                                <td><?php echo $cresm; ?> (<?php echo $porm; ?>%) </td>
+                                <td rowspan="2"><?php echo $identificacaoGalpao; ?></td>
+                                <td> Quantidade de Porcos Atual do Galpão: <?php echo $quantidade; ?></td>
+                                <td> Peso Atual do Galpão: <?php echo $mediaPeso; ?></td>
+                                <td> <?php echo $cresciQtde; ?> (<?php echo $porcentagemQtde; ?>%) </td>
+                                <td><?php echo $cresciPeso; ?> (<?php echo $porcetagemPeso; ?>%) </td>
                             </tr>
                         </tbody>
                         <?php } ?>
@@ -153,9 +208,7 @@
                                 $rs = mysqli_query($conexao, $sql);
                                 $us = mysqli_fetch_array($rs);
 
-                                //
-
-                        ?>
+                                // ?>
 
                         <tbody>
                             <tr>

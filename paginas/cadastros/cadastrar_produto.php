@@ -1,24 +1,22 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
-
+    require_once '../../controladores/verificar_cargo.php';
+    
     //Script para inserir produtos no Banco de Dados
 
     if(isset($_POST['btn-submit'])):
         $nome = mysqli_escape_string($conexao, $_POST['nome']);
-        $fornecedor = mysqli_escape_string($conexao, $_POST['forne']);
+        $fabricante = mysqli_escape_string($conexao, $_POST['fabri']);
         $unidade = mysqli_escape_string($conexao, $_POST['unidade']);
         $tipo = mysqli_escape_string($conexao, $_POST['tipo']);
 
-        $sql = "INSERT INTO item(nome, fornecedor, unidade, qtde, tipo) VALUES ('$nome', '$fornecedor', '$unidade', '$tipo', 0)";
+        $sql = "INSERT INTO item(nome, unidade, fabricante, tipo) VALUES ('$nome', '$unidade', '$fabricante', '$tipo')";
         $salvar = mysqli_query($conexao, $sql);
         
         header('Location: ../geral/estoque.php');
     endif;
     
-    //
-
-    require_once '../../controladores/verificar_cargo.php';
-?>
+    // ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,25 +40,8 @@
                         <label for="n" class="sr-only"> Nome </label>
                         <input type="text" name="nome" id="n" class="form-control" placeholder="Nome" required>
 
-                        <?php 
-
-                            //Listagem de todos os fornecedores cadastrados no Banco de Dados
-
-                            $fornecedor = mysqli_query($conexao, "SELECT * FROM fornecedor");
-                            while($forn = mysqli_fetch_array($fornecedor))
-                            {
-                        ?>
-                        <label for="f" class="sr-only"> <?php echo $forn['fantasia']; ?> </label>
-                        <select class="form-control" name="forne" id="f">
-                            <option values=""> Selecione </option>
-                            <option value="<?php echo $forn['id']; ?>"> <?php echo $forn['fantasia']; ?> </option>
-                        </select>
-                        <?php 
-                            } 
-                            
-                            //
-
-                        ?>
+                        <label for="fa" class="sr-only"> Fabricante </label>
+                        <input type="text" name="fabri" id="fa" class="form-control" placeholder="Fabricante" required>
 
                         <!-- Select com as unidades de medidas para os produtos -->
 
@@ -68,10 +49,8 @@
                         <select class="form-control" name="unidade" id="u">
                             <option value=""> Selecione </option>
                             <option value="Kg"> Quilogramas </option>
-                            <option value="Ml"> Mililitros </option>
-                            <option value="G"> Gramas </option>
                             <option value="L"> Litros </option>
-                            <option value="U"> Unidade </option>
+                            <option value="Un"> Unidade </option>
                         </select>
                         
                         <!-- -->
@@ -87,10 +66,8 @@
                         
                         <!-- -->
 
-                        <div class="btn-group">
-                            <button class="btn btn-lg btn-outline-success" type="submit" name="btn-submit"> Cadastrar Produto </button>
-                            <a class="btn btn-lg btn-outline-primary" href="../geral/estoque.php"> Voltar </a>
-                        </div>
+                        <button class="btn btn-md btn-outline-success btn-block" type="submit" name="btn-submit"> Cadastrar Produto </button>
+                        <a class="btn btn-md btn-outline-primary btn-block" href="../geral/estoque.php"> Voltar </a>
                     </form>
 
                     <!-- -->

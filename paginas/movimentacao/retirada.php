@@ -1,5 +1,6 @@
 <?php
     include '../../controladores/autenticacao_usuario.php';
+    include '../../controladores/verificar_cargo.php';
 
     //Scipt para retirada de produtos do estoque 
 
@@ -13,7 +14,7 @@
 
         $qm = $estoq['qtde'] - $q;
 
-        if($qm <= 0):
+        if($qm < 0):
 
             //Erro caso a quantidade for insuficiente
 
@@ -24,8 +25,9 @@
             //
 
         else:
+            $idp = $estoq['id_produto'];
             $idForn = $estoq['id_fornecedor'];
-            $lote = $esotq['lote'];
+            $lote = $estoq['lote'];
             $nt = $estoq['nt'];
             $preco = $estoq['preco'];
             $dataChe = $estoq['data_chegada'];
@@ -41,10 +43,7 @@
         endif;
     endif;
 
-    //
-
-    include '../../controladores/verificar_cargo.php';
-?>
+    // ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -102,10 +101,19 @@
                                     if($qtde <= 0):
                                         continue;
                                     endif;
+
+                                    $dataVencimento = mysqli_query($conexao, "SELECT YEAR(vencimento) AS ano, MONTH(vencimento) AS mes, 
+                                    DAY(vencimento) AS dia FROM estoque WHERE id_produto = '$idProd'");
+                                    $dataVenc = mysqli_fetch_array($dataVencimento);
+
+                                    $diaVenc = $dataVenc['dia'];
+                                    $mesVenc = $dataVenc['mes'];
+                                    $anoVenc = $dataVenc['ano'];
+                                    $dataConcatenada = $diaVenc ."/". $mesVenc ."/". $anoVenc;
                             ?>
 
-                            <option value="<?php echo $estEnt['id']; ?>"> <?php echo $it['nome'] ?> - <?php echo $estEnt['lote']; ?> - 
-                            <?php echo $estEnt['vencimento']; ?></option>
+                            <option value="<?php echo $estEnt['id']; ?>"> <?php echo $it['nome'] ?> - Lote <?php echo $estEnt['lote']; ?> - 
+                            <?php echo $dataConcatenada; ?></option>
 
                             <?php } ?>
                             
@@ -116,10 +124,6 @@
                         <label for="q" class="sr-only"> Quantidade: </label>
                         <input type="text" name="qtde" id="q" class="form-control" placeholder="Quantidade" required>
 
-                        <label for="m" class="sr-only"> Motivo: </label>
-                        <input type="text" name="motivo" id="m" class="form-control" placeholder="Motivo" required>
-
-                        
                         <button class="btn btn-lg btn-outline-danger btn-block" type="submit" name="btn-submit"> Retirar </button>
                         <a class="btn btn-lg btn-outline-primary btn-block" href="../geral/estoque.php"> Voltar </a>
                     </form>

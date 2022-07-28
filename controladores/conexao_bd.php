@@ -17,6 +17,4 @@
         include_once("criar_bd.php");
     }
 
-    //
-    
-?>
+    // ?>
