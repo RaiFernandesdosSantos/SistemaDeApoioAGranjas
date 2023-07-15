@@ -1,76 +1,76 @@
-/* <?php
-    include_once("controladores/conexao_bd.php");
-    session_start();
+<?php
+// include_once("controladores/conexao_bd.php");
+// session_start();
 
-    //Codigo responsavel por autenticar o usuario e encaminha-lo para a pagina correta
+// //Codigo responsavel por autenticar o usuario e encaminha-lo para a pagina correta
 
-    if(isset($_POST['btn-entrar'])):
-        $cpf = mysqli_escape_string($conexao, $_POST['cpf']);
-        $senha = mysqli_escape_string($conexao, $_POST['senha']);
+// if (isset($_POST['btn-entrar'])):
+//     $cpf = mysqli_escape_string($conexao, $_POST['cpf']);
+//     $senha = mysqli_escape_string($conexao, $_POST['senha']);
 
-        $sql = "SELECT cpf FROM usuario WHERE cpf = '$cpf'";
-        $resultado = mysqli_query($conexao, $sql);
+//     $sql = "SELECT cpf FROM usuario WHERE cpf = '$cpf'";
+//     $resultado = mysqli_query($conexao, $sql);
 
-        if(mysqli_num_rows($resultado) > 0):
-            $senha = md5($senha);
-            $sql = "SELECT * FROM usuario WHERE cpf = '$cpf' AND senha = '$senha'";
-            $resultado = mysqli_query($conexao, $sql);
+//     if (mysqli_num_rows($resultado) > 0):
+//         $senha = md5($senha);
+//         $sql = "SELECT * FROM usuario WHERE cpf = '$cpf' AND senha = '$senha'";
+//         $resultado = mysqli_query($conexao, $sql);
 
-            if(mysqli_num_rows($resultado) == 1):
-                $dados = mysqli_fetch_array($resultado);
-                $_SESSION['logado'] = true;
-                $_SESSION['id_usuario'] = $dados['id'];
+//         if (mysqli_num_rows($resultado) == 1):
+//             $dados = mysqli_fetch_array($resultado);
+//             $_SESSION['logado'] = true;
+//             $_SESSION['id_usuario'] = $dados['id'];
 
-                //Script responsavel por verificar o cargo do usuario e encaminha-lo para pagina correta
+//             //Script responsavel por verificar o cargo do usuario e encaminha-lo para pagina correta
 
-                $sql1 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = 1";
-                $resultado1 = mysqli_query($conexao, $sql1);
+//             $sql1 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = 1";
+//             $resultado1 = mysqli_query($conexao, $sql1);
 
-                $sql2 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = 2";
-                $resultado2 = mysqli_query($conexao, $sql2);
+//             $sql2 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = 2";
+//             $resultado2 = mysqli_query($conexao, $sql2);
 
-                $sql3 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = 3";
-                $resultado3 = mysqli_query($conexao, $sql3);
+//             $sql3 = "SELECT * FROM usuario WHERE cpf = '$cpf' and senha = '$senha' and cargo = 3";
+//             $resultado3 = mysqli_query($conexao, $sql3);
 
-                if(mysqli_num_rows($resultado1) == 1):
-                    header('Location: paginas/geral/pagina_restrita_gerente.php');
-                elseif(mysqli_num_rows($resultado2) == 1):
-                    header('Location: paginas/geral/pagina_restrita_veterinario.php');
-                elseif(mysqli_num_rows($resultado3) == 1):
-                    header('Location: paginas/geral/pagina_restrita_funcionario.php');
-                endif;
+//             if (mysqli_num_rows($resultado1) == 1):
+//                 header('Location: paginas/geral/pagina_restrita_gerente.php');
+//             elseif (mysqli_num_rows($resultado2) == 1):
+//                 header('Location: paginas/geral/pagina_restrita_veterinario.php');
+//             elseif (mysqli_num_rows($resultado3) == 1):
+//                 header('Location: paginas/geral/pagina_restrita_funcionario.php');
+//             endif;
 
-                //
-                
-                mysqli_close($conexao);
-                unset($conexao);
-            else:
+//             //
 
-                //Erro caso a senha ou o CPF esteja incorreto
+//             mysqli_close($conexao);
+//             unset($conexao);
+//         else:
 
-                $erro1 = "<script> var erro1 = 'Usuário e senha não conferem'; </script>";
-                echo $erro1;
-                echo "<script> alert(erro1); </script>";
+//             //Erro caso a senha ou o CPF esteja incorreto
 
-                //
+//             $erro1 = "<script> var erro1 = 'Usuário e senha não conferem'; </script>";
+//             echo $erro1;
+//             echo "<script> alert(erro1); </script>";
 
-            endif;
-        else:
+//             //
 
-            //Erro caso o usuario não esteja cadastrado
+//         endif;
+//     else:
 
-            $erro2 = "<script> var erro2 = 'Usuário inexistente'; </script>";
-            echo $erro2;
-            echo "<script> alert(erro2); </script>";
+//         //Erro caso o usuario não esteja cadastrado
 
-            //
+//         $erro2 = "<script> var erro2 = 'Usuário inexistente'; </script>";
+//         echo $erro2;
+//         echo "<script> alert(erro2); </script>";
 
-        endif;
-    endif;
+//         //
 
-    //
+//     endif;
+// endif;
 
-?> */
+// //
+
+?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
