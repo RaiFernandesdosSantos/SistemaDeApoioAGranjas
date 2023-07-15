@@ -1,4 +1,4 @@
-<?php
+/* <?php
     include_once("controladores/conexao_bd.php");
     session_start();
 
@@ -70,37 +70,40 @@
 
     //
 
-?>
+?> */
 
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-		<meta charset = "UTF-8">
-		<title> Login </title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="css/bootstrap.css" rel="stylesheet" media="screen">
-        <link href="css/estilo.css" rel="stylesheet" media="screen">
-	</head>
-    <body class="text-center gradiente">
-        <div class="container">
 
-            <!-- Formulario para login -->
+<head>
+    <meta charset="UTF-8">
+    <title> Login </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/estilo.css" rel="stylesheet" media="screen">
+</head>
 
-            <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <h1 class="h3 mb-3 font-weight-normal"> Login </h1>
+<body class="text-center gradiente">
+    <div class="container">
 
-                <label for="inputCPF" class="sr-only"> CPF </label>
-                <input type="text" id="inputCPF" class="form-control" placeholder="CPF" name="cpf" required>
+        <!-- Formulario para login -->
 
-                <label for="inputPassword" class="sr-only"> Senha </label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="senha" required>
+        <form class="form-signin" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <h1 class="h3 mb-3 font-weight-normal"> Login </h1>
 
-                <a href="paginas/cadastros/cadastro_gerente.php" class="btn btn-warning btn-block"> Registre-se </a>
-                <button class="btn btn-primary btn-block" type="submit" name="btn-entrar"> Login </button>
-            </form>
+            <label for="inputCPF" class="sr-only"> CPF </label>
+            <input type="text" id="inputCPF" class="form-control" placeholder="CPF" name="cpf" required>
 
-            <!-- -->
+            <label for="inputPassword" class="sr-only"> Senha </label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="senha" required>
 
-        </div>
-    </body>
+            <a href="paginas/cadastros/cadastro_gerente.php" class="btn btn-warning btn-block"> Registre-se </a>
+            <button class="btn btn-primary btn-block" type="submit" name="btn-entrar"> Login </button>
+        </form>
+
+        <!-- -->
+
+    </div>
+</body>
+
 </html>
