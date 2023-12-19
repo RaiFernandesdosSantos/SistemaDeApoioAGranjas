@@ -23,6 +23,7 @@ Em caso de dúvidas ou sugestões, sinta-se à vontade para entrar em contato pe
 
 ## Estrutura do Projeto
 
+```
 /
 |-- controladores/
 | |-- autenticacao_usuario.php
@@ -75,3 +76,4 @@ Em caso de dúvidas ou sugestões, sinta-se à vontade para entrar em contato pe
 | | |-- retirada.php
 |-- index.php
 |-- README.md
+```
