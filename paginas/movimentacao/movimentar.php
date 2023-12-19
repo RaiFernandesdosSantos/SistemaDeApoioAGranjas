@@ -1,6 +1,6 @@
 <?php
-    include '../../controllers/autenticacao_usuario.php';
-    include '../../controllers/verificar_cargo.php';
+    include '../../controladores/autenticacao_usuario.php';
+    include '../../controladores/verificar_cargo.php';
 
     //Script para alterar o historico da baia selecionada
 

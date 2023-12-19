@@ -1,6 +1,6 @@
 <?php
-    include '../../controllers/autenticacao_usuario.php';
-    require_once '../../controllers/verificar_cargo.php';
+    include '../../controladores/autenticacao_usuario.php';
+    require_once '../../controladores/verificar_cargo.php';
 
     if(isset($_POST['btn-submit'])):
         $nf = mysqli_escape_string($conexao, $_POST['nf']);
